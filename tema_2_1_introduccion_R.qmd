@@ -1,7 +1,7 @@
 ---
 title: "Tema 2.1. Elementos básicos del lenguaje R y estructuras de datos"
 subtitle: "Programación en Tecnologías de la Información Geográfica · Máster Universitario en Tecnologías de la Información Geográfica"
-author: "VPaloma Ruiz Benito y Verónica Cruz Alonso"
+author: "Paloma Ruiz Benito y Verónica Cruz Alonso"
 date: today
 date-format: "DD/MM/YYYY"
 toc: true
@@ -19,6 +19,12 @@ number-sections: true
 ---
 
 ![](images/diap_01_imagen_03.gif){width="32%"}
+
+# Código de conducta: ¿como aplicarlo a la asignatura?
+
+Lee: <https://www.contributor-covenant.org/version/2/0/code_of_conduct/> e información sacada de <https://datasciencebox.org/> Discute con tu compañero los puntos clave en tu trabajo profesional
+
+![](images/data-science-box.png)
 
 # Elementos básicos del lenguaje R
 
@@ -59,10 +65,11 @@ El **directorio de trabajo** es la carpeta de nuestro ordenador donde estamos tr
 
 getwd() # saber directorio de trabajo  
 
-# setwd("C:/Users/veruk/Desktop/Disco/ciencia_datos") # ojo con la ruta / o \\
+# setwd("C:\\Users\\uah\\OneDrive - Universidad de Alcala\\GitHub_Projects\\programacionR-masterTIG") 
+# ojo con la ruta / o \\
 ```
 
-💡Para ejecutar un comando: Ctrl + Enter (Ctrl + R) en el editor de código; Enter en la consola.
+💡 Para ejecutar un comando: `Ctrl + Enter (Ctrl + R)` en el editor de código; `Enter` en la consola.
 
 No es recomendable establecer el directorio de trabajo manualmente (código anterior) porque el trabajo deja de ser reproducible. Es mejor crear desde el principio un **proyecto** en R ligado a un **directorio relativo** que contenga todos los datos de entrada, los *scripts* y los resultados del *script*. Al abrir el proyecto, el directorio se sincroniza con pestaña *Files*.
 
@@ -70,7 +77,9 @@ No es recomendable establecer el directorio de trabajo manualmente (código ante
 
 💡Es recomendable abrir RStudio utilizando el icono del proyecto para una mejor organización.
 
-#### Ejercicio
+———————————————————————————————————
+
+#### 📝 Ejercicio
 
 1.  Crea un proyecto para la asignatura de programación TIG.
 
@@ -78,7 +87,9 @@ No es recomendable establecer el directorio de trabajo manualmente (código ante
 
 2.  Una vez creado genera una carpeta de "scripts", una de "datos" y una de "resultados". Revisa qué ha pasado en tu panel de archivos de RStudio.
 
-💡RStudio guarda por defecto los *scripts* abiertos y los datos cargados de una sesión a otra. Si quieres abrir una sesión limpia cada vez te recomendamos desactivar que se guarde el *.RData* en el espacio de trabajo.
+———————————————————————————————————
+
+💡RStudio guarda por defecto los *scripts* abiertos y los datos cargados de una sesión a otra. Si quieres abrir una sesión limpia cada vez te recomendamos desactivar que se guarde el ***.RData*** en el espacio de trabajo.
 
 ![Opciones para crear proyectos en RStudio.](images/diap_29_imagen_01.png){width="65%"}
 
@@ -92,11 +103,15 @@ library(tidyverse)
 
 ```
 
-#### Ejercicio
+———————————————————————————————————
+
+#### 📝 Ejercicio
 
 Instala el metapaquete tidyverse utilizando la consola y cárgalo en tu ambiente de trabajo.
 
-#### Ejercicio: busca ayuda
+———————————————————————————————————
+
+#### 📝 Ejercicio: busca ayuda
 
 ¿Puedes buscar ayuda sobre qué es el paquete ggplot2 y comprobar qué hace? ¿Puedes buscar ayuda sobre la función "select"?
 
@@ -105,6 +120,8 @@ Instala el metapaquete tidyverse utilizando la consola y cárgalo en tu ambiente
 ??ggplot2
 ?select
 ```
+
+———————————————————————————————————
 
 Si no encuentras el problema y necesitas ayuda puedes encontrarla en: \[Stackoverflow\](<http://stackoverflow.com)> y R-help mailing list. Antes de escribir:
 
@@ -116,7 +133,7 @@ Si no encuentras el problema y necesitas ayuda puedes encontrarla en: \[Stackove
 
 # Operadores
 
-R puede utilizarse como calculadora para operaciones aritméticas, funciones matemáticas y trigonometría. A continuación se practica la prioridad de operadores, el uso de paréntesis, logaritmos, exponenciales, potencias, raíces y constantes como `pi`. Cuando en la consola de RStudio ejecutas una línea de comando da instrucciones al ordenador para hacer la operación escrita.
+R puede utilizarse como **calculadora** para operaciones aritméticas, funciones matemáticas y trigonometría. A continuación se practica la prioridad de operadores, el uso de paréntesis, logaritmos, exponenciales, potencias, raíces y constantes como `pi`. Cuando en la consola de RStudio ejecutas una línea de comando da instrucciones al ordenador para hacer la operación escrita.
 
 ```{r operaciones_basicas}
 #| eval: false
@@ -165,7 +182,9 @@ En esta asignatura trataremos de seguir la [Guia de estilo de Tidyverse](https:/
 
 Al asignar un nombre a un objeto podemos llamarlos siempre que necesitemos a lo largo del script. No es necesario guardar (exportar) la mayoría de los objetos que tenemos en el entorno de trabajo de R a nuestro ordenador, lo importante es conservar el *script* con el que se generan.
 
-#### Ejercicio: nombra objetos
+———————————————————————————————————
+
+#### 📝 Ejercicio: nombra objetos
 
 ¿Es lo mismo nombrar a un objeto "x" o "X"? ¿Crees que te puede dar problemas en el código nombrar variables con mayúsculas y minúsculas? Para verlo, nombra dos objetos.
 
@@ -176,7 +195,9 @@ X <- "objeto" # si el objeto contiene letras, usar comillas
 class(x) # función para ver de que clase es nuestro objeto 
 ```
 
-📝R es sensible a las mayúsculas. Mejor no usarlas.
+———————————————————————————————————
+
+📝R es sensible a las mayúsculas. **¡¡¡Mejor no usarlas!!!**
 
 Los nombre de los objetos deben ser descriptivos. Es mejor usar nombres largos pero descriptivos, que cortos o sin sentido.
 
@@ -206,7 +227,7 @@ Usa nombre memorables y correctos para tus variables:
 
 Es recomendable organizar el script siempre de la misma manera: cargar paquetes, leer los datos, analizar, guardar resultados.
 
-Conviene utilizar secciones (CTRL + SHIFT + R).
+Conviene utilizar secciones `(CTRL + SHIFT + R)`.
 
 Numerar los scripts y las salidas (tablas, figuras, etc.) ayuda a ordenar el flujo de trabajo.
 
@@ -214,7 +235,9 @@ Conviene comentar el script con `#`. No es tan importante contar qué estás hac
 
 ## Spacing
 
-#### Ejercicio: sintaxis y estilo en R.
+———————————————————————————————————
+
+#### 📝  Ejercicio: sintaxis y estilo en R.
 
 Lee la Guía de estilo de Tidyverse y corrige el siguiente código para que sea más legible por otra persona.
 
@@ -230,6 +253,8 @@ total<-1+2
 
 secuencia <- 1 : 10
 ```
+
+———————————————————————————————————
 
 # Tipos de objetos en R aplicados a las TIG
 
@@ -263,11 +288,17 @@ str(alt_int)
 
 ![](images/continuos_discrete_allinson.png)Variables continuas y discretas. [Imagen de Allison Horst](https://allisonhorst.com/everything-else)
 
-#### Ejercicio: crea y opera con vectores
+———————————————————————————————————
+
+#### 📝  Ejercicio: crea y opera con vectores
 
 -   Crea un vector llamado `long` con cuatro valores de longitud de tu elección.
+
 -   Calcula la media y el mínimo de `long`.
+
 -   Suma 0.5 a todos los valores de `long`.
+
+    ———————————————————————————————————
 
 ```{r sol_vectores}
 #| include: false
@@ -294,11 +325,15 @@ mat_elev
 summary(mat_elev)
 ```
 
-#### Ejercicio: crea y opera con una matriz
+———————————————————————————————————
+
+#### 📝  Ejercicio: crea y opera con una matriz
 
 -   Crea una matriz de 5 x 5 de nombre `mat5` con valores aleatorios entre 0 y 1 (piensa en ello como un raster de pendientes).
 -   Calcula el valor máximo de esa matriz.
 -   ¿Qué celda (fila, columna) tiene el máximo?
+
+———————————————————————————————————
 
 ```{r sol_matrices}
 #| include: false
@@ -323,7 +358,9 @@ municipios
 summary(municipios)
 ```
 
-#### Ejercicio: crea un data frame completo.
+———————————————————————————————————
+
+#### 📝  Ejercicio: crea un data frame completo.
 
 Crea un *data frame* llamado `rios` con tres ríos y las columnas `nombre`, `longitud_km` y `caudal_m3s`.
 
@@ -337,7 +374,11 @@ Crea un *data frame* llamado `rios` con tres ríos y las columnas `nombre`, `lon
 # )
 ```
 
-#### Ejercicio: crea vectores de distinto tipo y únelos en un data frame
+———————————————————————————————————
+
+———————————————————————————————————
+
+#### 📝  Ejercicio: crea vectores de distinto tipo y únelos en un data frame
 
 La creación de vectores se usa mucho en programación. Revisa en la [chuleta de R base](https://rstudio.github.io/cheatsheets/base-r.pdf) la información para crear vectores y genera todos los siguientes vectores:
 
@@ -357,6 +398,8 @@ La creación de vectores se usa mucho en programación. Revisa en la [chuleta de
 
 -   *¿Son todos los tipos de datos categóricos iguales?*
 
+———————————————————————————————————
+
 ![](images/type_factors.png)Tipos de variables categóricas. [Imagen de Allison Horst](https://allisonhorst.com/everything-else)
 
 ## Listas
@@ -373,9 +416,13 @@ info_tig <- list(
 str(info_tig)
 ```
 
-#### Ejercicio: crea una lista y accede a sus elementos
+———————————————————————————————————
+
+#### 📝  Ejercicio: crea una lista y accede a sus elementos
 
 -   Crea una lista que contenga: tu vector `long`, la matriz 5 x 5 `mat5` y el *data frame* `rios`.
+
+———————————————————————————————————
 
 ```{r sol_listas}
 #| include: false
@@ -411,7 +458,9 @@ mi_lista[[2]]    # segundo elemento (por posición)
 mi_lista$b       # elemento por nombre
 ```
 
-#### Ejercicio: accede a elementos dentro de los objetos
+**———————————————————————————————————**
+
+#### 📝  Ejercicio: accede a elementos dentro de los objetos
 
 -   Accede a la tercera coordenada de `long`.
 
@@ -421,6 +470,8 @@ mi_lista$b       # elemento por nombre
 
 -   Accede al tercer elemento del elemento a de `mi_lista`.
 
+———————————————————————————————————
+
 ```{r}
 #| include: false
 
@@ -429,8 +480,12 @@ mi_lista$b       # elemento por nombre
 # municipios[municipios$nombre == "C", "alt_media"]
 ```
 
-#### Ejercicio: haciendo estadísticas básicas sobre nuestros vectores
+———————————————————————————————————
+
+#### 📝  Ejercicio: haciendo estadísticas básicas sobre nuestros vectores
 
 Toma el vector de precipitación y genera un nuevo vector donde reemplaces tres datos por 1000. Realiza las estadísticas básicas de ambos vectores con `summary()`. ¿Es la media suficiente? ¿qué información te dan los extremos?
+
+———————————————————————————————————
 
 ![](images/summary_allinson.png) [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
