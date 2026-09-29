@@ -1,7 +1,7 @@
 ---
-title: "Tema 2.2. Data wrangling"
+title: "Tema 2.2. Manipulación de datos"
 subtitle: "Programación en Tecnologías de la Información Geográfica · Máster Universitario en Tecnologías de la Información Geográfica"
-author: "Verónica Cruz Alonso y Paloma Ruiz Benito"
+author: "Paloma Ruiz Benito y Verónica Cruz Alonso"
 date: today
 date-format: "DD/MM/YYYY"
 toc: true
@@ -13,60 +13,77 @@ format:
     embed-resources: true
   gfm: default
 editor: visual
-  markdown: 
-    wrap: 72
 editor_options:
   chunk_output_type: console
 number-sections: true
 ---
 
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+======================================================================================================================+==================================================================================================================================================================================+====================================================================================================================================================+=========================+=====+========================+=====+=============================+====+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    | **A vector**            |     | **A\                   |     | **A\                        |    |
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     | matriz**               |     | data frame**                |    |
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    | **más largo**           |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      | **de**                                                                                                                                                                           |                                                                                                                                                    | **c**(x,y)\             |     | **cbind**(x,y)\        |     | **data.frame**(x,y)         |    |
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     | **rbind**(x,y)         |     |                             |    |
-|                                                                                                                      | **vector**                                                                                                                                                                       |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      | **de**                                                                                                                                                                           |                                                                                                                                                    | **as.vector**(mymatrix) |     |                        |     | **as.data.frame**(mymatrix) |    |
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-|                                                                                                                      | **matriz**                                                                                                                                                                       |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      | **de\                                                                                                                                                                            |                                                                                                                                                    |                         |     | **as.matrix**(myframe) |     |                             |    |
-|                                                                                                                      | data frame**                                                                                                                                                                     |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
-|                                                                                                                      |                                                                                                                                                                                  |                                                                                                                                                    |                         |     |                        |     |                             |    |
-+----------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------+-----+------------------------+-----+-----------------------------+----+
+# Diferencias Rbase, tidyverse
 
-# Data wrangling: filtrado y selección de variables. Diferencias Rbase, tidyverse
+En R existen distintas formas de realizar una misma tarea. Debéis conocer las principales diferencias entre **R base** y **`tidyverse`**.
 
-💡 Cuando trabajamos con datos tipo "data.frame" fila es una *observación"* y cada columna es una "*variable*. Esto parece sencillo, pero *¿realmente ocurre así?* primero asegurate de la estructura de tus datos, que la comprendes e intenta trabajar con tidy data.
+## Rbase
 
-![](images/tidy_vs_untidydata.jpg) [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
+**R base** (*base R*) es el conjunto de funciones y herramientas que están disponibles al instalar R, sin necesidad de instalar paquetes adicionales. Permite crear y manipular objetos, realizar cálculos, seleccionar datos, aplicar funciones, hacer gráficos, etc.
+
+## Tidyverse
+
+A lo largo del curso trabajaremos principalmente con **`tidyverse`**, una colección de paquetes de R diseñada para facilitar la manipulación, análisis y visualización de datos. Aunque veremos algunos conceptos y funciones de R base, la mayor parte de los ejemplos y ejercicios se realizarán utilizando `tidyverse`.
+
+![](images/tidyverse.jpg){width="310"}
+
+[Imagen de Allson Horst](https://allisonhorst.com/everything-else)
+
+`tidyverse` es una colección de paquetes de R diseñada para la ciencia de datos y basada en una forma concreta y coherente de trabajar.
+
+Todos sus paquetes comparten una misma filosofía de diseño, gramática y estructuras de datos. — tidyverse
+
+💡 **tidyverse** está fundamentalmente **centrado en las personas** (human-centred): está diseñado para facilitar que las personas puedan leer, escribir y comprender el código (Wickham et al., 2019).
+
+![](images/tidy-packages.png){width="414"}
+
+## `tidyr`: datos ordenados (*tidy data*)
+
+El paquete **`tidyr`** nos ayuda a organizar los datos siguiendo los principios de *tidy data*. Un conjunto de datos está en formato **tidy** cuando cumple tres características:
+
+1.  📝 **Cada columna representa una variable.**
+
+2.  📝 **Cada fila representa una observación.**
+
+3.  📝 **Cada celda contiene un único valor.**
+
+Esta estructura facilita la manipulación, visualización y análisis posterior de los datos con las herramientas de `tidyverse`.
+
+🔎 [Consulta este post de Julie Lowndes y Allison Horst](https://www.openscapes.org/blog/2020/10/12/tidy-data/) para ver ejemplos visuales de *tidy data*.
+
+💡 Cuando trabajamos con datos tipo "data.frame" fila es una *observación* y cada columna es una *variable*. Esto parece sencillo, pero *¿realmente ocurre así?* primero asegurate de que conoces la **estructura de tus datos**, que la comprendes e intenta trabajar con **tidy data**.
+
+![](images/tidy_vs_untidydata.jpg){width="349"} [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
 
 Siempre nos debemos asegurar que nuestros datos siguen un formato "tidy" y volveremos sobre esto más adelante, a lo largo de *TODO* el curso...
 
-![](images/tidy_friends.jpg) [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
+![](images/tidy_friends.jpg){width="382"} [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
 
-📝 En esta sección vamos a comparar dos operaciones muy comunes en manipulación de datos:
+#### 📝 Ejercicio: analiza si son datos tidy
 
-- `select()` para **elegir columnas**\
-- `filter()` para **elegir filas**
+En en aula virtual te hemos dejado cuatro archivos de datos. Analiza si son datos "tidyr", tipos de datos, nº de columnas, nº de filas; así como estadísticas básicas de media, rango, etc.
 
-Primero veremos cómo se hacen en **base R** y luego con el **tidyverse**. Usaremos el dataset incorporado en R llamado `mtcars`, que contiene información de automóviles. Podéis ver más información para la exploración de esta base de datos aquí: https://cran.r-project.org/web/packages/explore/vignettes/explore-mtcars.html
+# Manipulación de datos: filtrado y selección de variables
 
-Los datos fueron extraidos de 1974 Motor Trend US magazine, contienen consumo de gasolina y 19 aspectos del diseño del automovil para 32 automoviles.
+En esta sección vamos a comparar dos operaciones muy comunes en manipulación de datos:
+
+-   `select()` para **elegir columnas (variables)**\
+-   `filter()` para **elegir filas (observaciones)**
+
+Primero veremos cómo se hacen en **base R** y luego con el **tidyverse**. Usaremos el dataset incorporado en R llamado `mtcars`, que contiene información de automóviles.
+
+Podéis ver más información para la exploración de esta base de datos aquí:
+
+<https://cran.r-project.org/web/packages/explore/vignettes/explore-mtcars.html>
+
+![](images/mtcars-variables.png){width="261"}
+
+Los datos fueron extraidos de 1974 Motor Trend US magazine, contienen consumo de gasolina y **19 aspectos del diseño del automovil** para **32 automoviles**, ¿cuántas filas y columnas podemos esperar? ¿por qué?
 
 ```{r}
 # Cargar librerías
@@ -78,13 +95,31 @@ head(mtcars, 5)
 names(mtcars)
 
 head(mtcars, n = 4) #rbase
-mtcars |> #dplyr
+mtcars |> #dplyr #pipa
   head(n = 4)
 ```
 
-Nuestro objetivo: seleccionar la mejor marca (no real), que tiene un mayor número de millas por US gallon multiplicado por el número de cilindos. Para lo que: 1. Conocemos los datos 2. Seleccionamos variables de interés 3. Filtramos los coches con un numero de cilindos mayor de 4 4. Los colocamos en orden descendiente 5. Mostramos los resultados: nuestro primer gráfico
+Para comprender lo que hacemos tenemos que usar la pipa:
 
-## 1. Conoce tus datos para una pregunta concreta
+![](images/pipa.png){width="173"}
+
+no hace más que lo siguiente, pero ayuda a mucho a comprender y sintetizar código, porque ¿en qué sentido hablamos los humanos?
+
+![](images/funcionamiento_pipa.png){width="185"}
+
+**Nuestro objetivo:** seleccionar la mejor marca (no real), que tiene un mayor número de millas por US gallon multiplicado por el número de cilindos. Para lo que:
+
+1.  Conocemos los datos
+
+2.  Seleccionamos variables de interés
+
+3.  Filtramos los coches con un numero de cilindos mayor de 4
+
+4.  Los colocamos en orden descendiente
+
+5.  Mostramos los resultados: nuestro primer gráfico
+
+## Conoce tus datos para una pregunta concreta
 
 ```{r}
 
@@ -106,11 +141,23 @@ nrow(cars_df)
 ncol(cars_df)
 ```
 
-#### Ejercicio 1: conoce la estructura de tus datos 🧩
+———————————————————————————————————
+
+#### 📝 Ejercicio: conoce la estructura de tus datos 
 
 Piensa y escribe en una línea qué hace cada función y discutelo con el compañero
 
-## 2. Selección de variables de interés: Rbase vs. tidyverse
+———————————————————————————————————
+
+Recuerda, SIEMPRE debes conocer tus datos y dar esa información ANTES de empezar un análisis:
+
+-   ¿Qué tipo de datos tienes?
+
+-   ¿Cuántas observaciones? ¿Qué es tu unidad de observación?
+
+-   ¿Cuantas columnas? ¿Qué unidades y qué rangos tienen?
+
+## Selección de variables de interés: Rbase vs. tidyverse
 
 Queremos seleccionar las variables `mpg` (millas por galón) y `cyl` (número de cilindros), además de la marca.
 
@@ -128,13 +175,13 @@ select_mtcars_tidyverse <- mtcars |>
   select(mpg, cyl)
 ```
 
-#### Ejercicio 2: diferencias entre Rbase y tidyverse 🧩
+#### 📝 Ejercicio: diferencias entre Rbase y tidyverse 
 
 ¿Qué es más sencillo de entender? ¿y más reproducible de las tres opciones que hemos visto?
 
 ------------------------------------------------------------------------
 
-# 3. Filtramos los coches con un numero de cilindos mayor de 4
+# Filtramos los coches con un numero de cilindos mayor de 4
 
 Queremos quedarnos solo con los coches que tienen más de **4 cilindros**.
 
@@ -153,17 +200,9 @@ select_mtcars_tidyverse |>
 
 ------------------------------------------------------------------------
 
-# 4. Lo colocamos en orden descendiente, combinando operaciones
+# Lo colocamos en orden descendiente, combinando operaciones
 
 Queremos quedarnos solo con las columnas `mpg` y `cyl`, y además filtrar los coches que tengan **4 cilindros**, y ordenarlo en orden descendiente.
-
-Para comprender lo que hacemos tenemos que usar la pipa:
-
-![](images/pipa.png)
-
-no hace más que lo siguiente, pero ayuda a mucho a comprender y sintetizar código, porque ¿en qué sentido hablamos los humanos?
-
-![](images/funcionamiento_pipa.png)
 
 ### Con tidyverse (piping)
 
@@ -195,7 +234,7 @@ mtcars_sorted <- mtcars |>
 
 👉 Ventajas: usa solo R base, no necesita librerías adicionales. 👉 Inconvenientes: la sintaxis es más dificil para alumnos principiantes, menos legible.
 
-##5. Mostramos los resultados: nuestro primer gráfico
+# Mostramos los resultados: nuestro primer gráfico
 
 Gráfico base R
 
@@ -220,7 +259,7 @@ ggplot(mtcars_sorted, aes(x = cyl, y = mpg_cyl)) +
 
 ------------------------------------------------------------------------
 
-#### Ejercicio 3: practica la selección y filtrado con la pipa 🧩
+#### 📝 Ejercicio: practica la selección y filtrado con la pipa 
 
 Ahora es vuestro turno 💡:
 
@@ -234,8 +273,8 @@ Envia las contestaciones de los ejercicios (2) y (3) por el aula virtual.
 
 # Conclusión
 
-- `select()` = elegir columnas (variables).\
-- `filter()` = elegir filas (observaciones).\
-- La forma tidyverse es más legible cuando se encadenan varias operaciones, especialmente cuando se tuliza con la pipa.
+-   `select()` = elegir columnas (variables).\
+-   `filter()` = elegir filas (observaciones).\
+-   La forma tidyverse es más legible cuando se encadenan varias operaciones, especialmente cuando se tuliza con la pipa.
 
-![](images/R_heart.gif)
+![](images/R_heart.gif){width="213"}

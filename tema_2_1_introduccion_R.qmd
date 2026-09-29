@@ -89,6 +89,10 @@ No es recomendable establecer el directorio de trabajo manualmente (código ante
 
 ———————————————————————————————————
 
+![](images/setwd_rproj.png){width="427"}
+
+[Imagen de Allson Horst](https://allisonhorst.com/everything-else)
+
 💡RStudio guarda por defecto los *scripts* abiertos y los datos cargados de una sesión a otra. Si quieres abrir una sesión limpia cada vez te recomendamos desactivar que se guarde el ***.RData*** en el espacio de trabajo.
 
 ![Opciones para crear proyectos en RStudio.](images/diap_29_imagen_01.png){width="65%"}
