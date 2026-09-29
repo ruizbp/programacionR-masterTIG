@@ -1,0 +1,436 @@
+---
+title: "Tema 2.1. Elementos básicos del lenguaje R y estructuras de datos"
+subtitle: "Programación en Tecnologías de la Información Geográfica · Máster Universitario en Tecnologías de la Información Geográfica"
+author: "VPaloma Ruiz Benito y Verónica Cruz Alonso"
+date: today
+date-format: "DD/MM/YYYY"
+toc: true
+toc-depth: 4
+toc-title: "Índice"
+format:
+  html:
+    link-external-newwindow: true
+    embed-resources: true
+  gfm: default
+editor: visual
+editor_options:
+  chunk_output_type: console
+number-sections: true
+---
+
+![](images/diap_01_imagen_03.gif){width="32%"}
+
+# Elementos básicos del lenguaje R
+
+🎯 **Objetos:** cualquier elemento almacenado con un nombre específico (`<-`). Pueden ser de muchas clases: `numeric`, `integer`, `logical`, `data.frame`, `SpatVector`, etc.
+
+```{r}
+1:6 #La función ":" genera un grupo de números enteros
+```
+
+Ahora mismo hemos generado un grupo de seis número de enteros, pero no se han guardado en ningún sitio. Si quieres usar este vector de nuevo, debes asignarle un nombre con la flecha de asignación (`<-`), que servirá para llamar de nuevo al vector.
+
+🎯 **Funciones:** objetos de R que toman un vector de entrada y dan como resultado otro vector haciendo una acción concreta (funcionalidad específica). Son los bloques de construcción fundamentales en cualquier script de R que es un lenguaje funcional.
+
+🎯 **Argumentos:** son las especificaciones de las funciones. Tienen un nombre y un valor por defecto o indicado por el usuario.
+
+🎯 **Paquetes o librerias:** contienen funciones reutilizables, documentación sobre cómo usarlas y datos de ejemplo. Son las unidades fundamentales de código reproducible en R.
+
+> Para comprender la programación en R, resultan útiles dos lemas:
+>
+> \- Todo lo que existe es un objeto.
+>
+> \- Todo lo que sucede es una llamada a función.
+>
+> — John Chambers ([Advanced R](https://adv-r.hadley.nz/index.html))
+
+![](images/library.png)
+
+🎯 [**CRAN**](https://cran.r-project.org/)**:** the Comprehensive R Archive Network. A 26 de septiembre de 2026, CRAN ofrecía 25.205 paquetes ([cran.r-project.org](https://cran.r-project.org/web/packages/?utm_source=chatgpt.com)). Es la cifra de paquetes disponibles en CRAN, no un total de todos los repositorios de R. Para orientarse entre ellos, CRAN mantiene 49 guías temáticas (*Task Views*) para encontrar paquetes. Incluyen, por ejemplo, análisis espacial y espaciotemporal, datos ambientales, estadística, series temporales, aprendizaje automático, visualización, bases de datos e investigación reproducible. No son categorías excluyentes.
+
+# Comenzando a trabajar en R
+
+## El espacio de trabajo
+
+El **directorio de trabajo** es la carpeta de nuestro ordenador donde estamos trabajando, de donde se leeran los archivos de entrada y donde se guardarán los de salida a menos que especifiquemos lo contrario. El *script* es el archivo básico que almacena código de R de nuestra sesión de trabajo.
+
+```{r wd}
+#| eval: false  
+
+getwd() # saber directorio de trabajo  
+
+# setwd("C:/Users/veruk/Desktop/Disco/ciencia_datos") # ojo con la ruta / o \\
+```
+
+💡Para ejecutar un comando: Ctrl + Enter (Ctrl + R) en el editor de código; Enter en la consola.
+
+No es recomendable establecer el directorio de trabajo manualmente (código anterior) porque el trabajo deja de ser reproducible. Es mejor crear desde el principio un **proyecto** en R ligado a un **directorio relativo** que contenga todos los datos de entrada, los *scripts* y los resultados del *script*. Al abrir el proyecto, el directorio se sincroniza con pestaña *Files*.
+
+💡Para crear un proyecto: Archivo \> Nuevo proyecto
+
+💡Es recomendable abrir RStudio utilizando el icono del proyecto para una mejor organización.
+
+#### Ejercicio
+
+1.  Crea un proyecto para la asignatura de programación TIG.
+
+👀Evita símbolos raros (espacios, tildes, etc.) en la ruta de trabajo.
+
+2.  Una vez creado genera una carpeta de "scripts", una de "datos" y una de "resultados". Revisa qué ha pasado en tu panel de archivos de RStudio.
+
+💡RStudio guarda por defecto los *scripts* abiertos y los datos cargados de una sesión a otra. Si quieres abrir una sesión limpia cada vez te recomendamos desactivar que se guarde el *.RData* en el espacio de trabajo.
+
+![Opciones para crear proyectos en RStudio.](images/diap_29_imagen_01.png){width="65%"}
+
+## Instalar y cargar paquetes
+
+La primera vez que necesitas un paquete o librería lo instalas con la función `install.packages()`; las veces subsecuentes lo cargas en tu sesión de trabajo con la función `library()` para poder usarlo.
+
+```{r instalar}
+# install.packages("tidyverse", dep = T) # dep = T significa instalar dependencias  
+library(tidyverse)  
+
+```
+
+#### Ejercicio
+
+Instala el metapaquete tidyverse utilizando la consola y cárgalo en tu ambiente de trabajo.
+
+#### Ejercicio: busca ayuda
+
+¿Puedes buscar ayuda sobre qué es el paquete ggplot2 y comprobar qué hace? ¿Puedes buscar ayuda sobre la función "select"?
+
+```{r ayuda}
+
+??ggplot2
+?select
+```
+
+Si no encuentras el problema y necesitas ayuda puedes encontrarla en: \[Stackoverflow\](<http://stackoverflow.com)> y R-help mailing list. Antes de escribir:
+
+-   Asegurate de tener la última version de R y del paquete instalada.
+
+-   Mira si alguien ha preguntado previamente sobre tu problema, es mucho más rápido que esperar una respuesta.
+
+-   Crea un ejemplo minimo y reproducible para que la comunidad pueda ayudarte con [reprex](https://reprex.tidyverse.org/)[.](http://stackoverflow.com/questions/5963269).)
+
+# Operadores
+
+R puede utilizarse como calculadora para operaciones aritméticas, funciones matemáticas y trigonometría. A continuación se practica la prioridad de operadores, el uso de paréntesis, logaritmos, exponenciales, potencias, raíces y constantes como `pi`. Cuando en la consola de RStudio ejecutas una línea de comando da instrucciones al ordenador para hacer la operación escrita.
+
+```{r operaciones_basicas}
+#| eval: false
+
+5 + 6
+5 * 6
+60 / 4
+5 + 4 - 2
+5 + 4 * 5
+(5 + 4) * 5
+log(10) # logaritmo neperiano
+log10(10)
+exp(1)
+3 ^ 2
+3 ^ 2 / 3
+sqrt(16)
+pi
+sin(pi / 2) # en radianes
+cos(pi / 2)
+tan(pi / 2)
+asin(1)
+asin(1) * 2
+asin(1) * 2 - pi
+acos(1)
+round(4.68, 1)
+```
+
+![](images/slide-23.png){fig-align="center" width="92%"}
+
+```{r operaciones_relacionales}
+
+4 >= 5
+
+!(4 >= 5)
+```
+
+![](images/clipboard-2089169638.png)
+
+# ¿Cómo consigo que mi código se entienda?
+
+![](images/Importance-style-guide.png)
+
+En esta asignatura trataremos de seguir la [Guia de estilo de Tidyverse](https://style.tidyverse.org/). No es obligatorio usar este estilo, pero hay facilitar la lectura a otros usuarios utilizando un estilo común y consistente.
+
+## Nombrar objetos
+
+Al asignar un nombre a un objeto podemos llamarlos siempre que necesitemos a lo largo del script. No es necesario guardar (exportar) la mayoría de los objetos que tenemos en el entorno de trabajo de R a nuestro ordenador, lo importante es conservar el *script* con el que se generan.
+
+#### Ejercicio: nombra objetos
+
+¿Es lo mismo nombrar a un objeto "x" o "X"? ¿Crees que te puede dar problemas en el código nombrar variables con mayúsculas y minúsculas? Para verlo, nombra dos objetos.
+
+```{r objetos}
+
+x <- 4.5 
+X <- "objeto" # si el objeto contiene letras, usar comillas 
+class(x) # función para ver de que clase es nuestro objeto 
+```
+
+📝R es sensible a las mayúsculas. Mejor no usarlas.
+
+Los nombre de los objetos deben ser descriptivos. Es mejor usar nombres largos pero descriptivos, que cortos o sin sentido.
+
+Hay dos cosas difíciles en la ciencia de computación:
+
+> \- Invalidar cachés.
+>
+> \- Poner nombres a cosas
+>
+> — Phil Karlton
+
+Usa nombre memorables y correctos para tus variables:
+
+✅ Siempre empiezan por letras (en el caso de objetos)
+
+✅ Mejor que sólo contengan letras, numeros, "\_" y ".".
+
+✅ Los nombres deben ser legibles por máquinas: no uses espacios, caracteres especiales o palabras o símbolos reservadas para otras cosas (`^`, `!`, `$`, `@`, `+`, `-`, `/`, `*`).
+
+✅ Los nombres deben ser legibles para humanos: describen lo que continene. Para variables usa nombres y para funciones verbos.
+
+✅ Mejor minúsculas separadas por "\_"
+
+✅ Evita el uso de nombres comunes
+
+## Organización del *script*
+
+Es recomendable organizar el script siempre de la misma manera: cargar paquetes, leer los datos, analizar, guardar resultados.
+
+Conviene utilizar secciones (CTRL + SHIFT + R).
+
+Numerar los scripts y las salidas (tablas, figuras, etc.) ayuda a ordenar el flujo de trabajo.
+
+Conviene comentar el script con `#`. No es tan importante contar qué estás haciendo porque ya se entiene al leer el código, si no **por qué** has ido haciendo cada paso.
+
+## Spacing
+
+#### Ejercicio: sintaxis y estilo en R.
+
+Lee la Guía de estilo de Tidyverse y corrige el siguiente código para que sea más legible por otra persona.
+
+```{r errore_}
+#|eval: false
+
+
+valores <- c(1,2,3)
+
+media <- mean( valores )
+
+total<-1+2
+
+secuencia <- 1 : 10
+```
+
+# Tipos de objetos en R aplicados a las TIG
+
+## Vectores
+
+🎯 Un **vector** es la estructura de datos más simple en R. Es una colección de uno o más elementos del mismo tipo (números -continuos o discretos-, texto o valores lógicos).
+
+Los vectores pueden estar vacíos (tener una longiturd de 0) y esto puede ser útil cuando escribáis funciones.
+
+```{r vectores}
+# Vector con coordenadas de latitud
+lat <- c(41.4, 42.1, 40.9, 39.5) 
+lat 
+
+# Vector con valores de altitud (en metros)
+alt <- c(110, 450, 440, 200)
+alt 
+
+# Podemos operar con ellos
+alt + 10       # sumar 10 metros a todas las altitudes
+alt * 0.001    # convertir a kilómetros
+mean(alt)      # promedio de altitudes
+max(alt)       # altitud máxima
+
+# Tipo de los vectores creados
+str(lat)
+str(alt)
+alt_int <- as.integer(c(110, 450, 440, 200))
+str(alt_int)
+```
+
+![](images/continuos_discrete_allinson.png)Variables continuas y discretas. [Imagen de Allison Horst](https://allisonhorst.com/everything-else)
+
+#### Ejercicio: crea y opera con vectores
+
+-   Crea un vector llamado `long` con cuatro valores de longitud de tu elección.
+-   Calcula la media y el mínimo de `long`.
+-   Suma 0.5 a todos los valores de `long`.
+
+```{r sol_vectores}
+#| include: false
+
+# long <- c(-3.7, -3.6, -3.8, -3.9)
+# mean(long)
+# min(long)
+# long_plus <- long + 0.5
+```
+
+## Matrices
+
+🎯 Las **matrices** son estructuras de datos bidimensionales que contienen datos del mismo tipo. En TIG, pueden servir para representar un **raster** (por ejemplo, una matriz de elevaciones o pendientes).
+
+```{r matrices}
+# Crear 15 valores de elevación simulados
+elev <- sample(100:500, size = 15, replace = TRUE)
+
+# Transformar a matriz 3 x 4 (3 filas, 4 columnas)
+mat_elev <- matrix(elev, nrow = 3, ncol = 4)
+mat_elev
+
+# Resumen de la matriz
+summary(mat_elev)
+```
+
+#### Ejercicio: crea y opera con una matriz
+
+-   Crea una matriz de 5 x 5 de nombre `mat5` con valores aleatorios entre 0 y 1 (piensa en ello como un raster de pendientes).
+-   Calcula el valor máximo de esa matriz.
+-   ¿Qué celda (fila, columna) tiene el máximo?
+
+```{r sol_matrices}
+#| include: false
+
+# mat5 <- matrix(runif(25, min = 0, max = 1), nrow = 5, ncol = 5) #genera números aleatorios con distribución uniforme
+# max_val <- max(mat5)
+# which(mat5 == max_val, arr.ind = TRUE)  # fila, columna del máximo
+```
+
+## *Data frames*
+
+🎯 Un ***data frame*** es una tabla de dos dimensiones donde cada columna puede ser de distinto tipo. Es la estructura más usada para análisis y la que normalmente acompaña a una capa espacial vectorial (atributos).
+
+```{r dataframes}
+municipios <- data.frame(
+  nombre = c("A", "B", "C"),
+  poblacion = c(1200, 5400, 3100),
+  alt_media = c(350, 200, 480)
+)
+
+municipios
+summary(municipios)
+```
+
+#### Ejercicio: crea un data frame completo.
+
+Crea un *data frame* llamado `rios` con tres ríos y las columnas `nombre`, `longitud_km` y `caudal_m3s`.
+
+```{r sol_dataframes}
+#| include: false
+
+# rios <- data.frame(
+#   nombre = c("Rio1", "Rio2", "Rio3"),
+#   longitud_km = c(45.2, 120.5, 78.0),
+#   caudal_m3s = c(12.3, 45.1, 8.7)
+# )
+```
+
+#### Ejercicio: crea vectores de distinto tipo y únelos en un data frame
+
+La creación de vectores se usa mucho en programación. Revisa en la [chuleta de R base](https://rstudio.github.io/cheatsheets/base-r.pdf) la información para crear vectores y genera todos los siguientes vectores:
+
+-   Genera una secuencia de enteros del 1000 and 1099, poniendole el nombre de *identificador* al objeto.
+
+-   Genera un vector que se llame "*temperatura*" que sea una secuencia de -5 a 15 y tenga una longitud de 100.
+
+-   Haz que se repita "interior" y "costa" en un vector que se llame *region*, repitiendose 50 veces cada valor.
+
+-   Haz que se repita c("1", "0") en un vector que se llame *agente*, repitiendose 50 veces.
+
+-   Haz que se repita c("1", "2", "3", "4") en un vector que se llame *tipo_suelo*, repitiendose 25 veces.
+
+-   Genera un vector que tenga una media de 500 y una desviación de 100, que se llame *precipitacion*.
+
+-   Une todos los vectores en un data frame.
+
+-   *¿Son todos los tipos de datos categóricos iguales?*
+
+![](images/type_factors.png)Tipos de variables categóricas. [Imagen de Allison Horst](https://allisonhorst.com/everything-else)
+
+## Listas
+
+🎯 Una **lista** puede contener todo tipo de objetos: vectores, matrices, data.frames, modelos, etc. En TIG es muy útil para agrupar varias capas o resultados de un análisis en un único objeto.
+
+```{r listas}
+info_tig <- list(
+  coords = list(lat = lat, long = c(-3.7, -3.6, -3.8, -3.9)),
+  municipios = municipios,
+  elev_matrix = mat_elev
+)
+
+str(info_tig)
+```
+
+#### Ejercicio: crea una lista y accede a sus elementos
+
+-   Crea una lista que contenga: tu vector `long`, la matriz 5 x 5 `mat5` y el *data frame* `rios`.
+
+```{r sol_listas}
+#| include: false
+
+# mi_lista <- list(long = c(-3.7, -3.6, -3.8, -3.9), 
+#                    pendiente = mat5, rios = rios)
+# str(mi_lista)
+```
+
+## Indexación (acceder a elementos)
+
+Saber indexar es esencial: permite leer o modificar valores puntuales.
+
+```{r indexacion}
+# Vectores
+alt
+alt[2]          # segunda altitud
+
+# Matrices: [fila, columna]
+mat_elev
+mat_elev[1, 3]  # fila 1, columna 3
+mat_elev[1, ]   # todas las columnas de la fila 1
+mat_elev[, 2]   # todas las filas de la columna 2
+
+# Data.frame
+municipios
+municipios[2, "poblacion"]   # población del municipio B
+municipios$poblacion         # vector de la columna 'poblacion'
+
+# Listas
+mi_lista <- list(a = 1:4, b = letters[1:4])
+mi_lista[[2]]    # segundo elemento (por posición)
+mi_lista$b       # elemento por nombre
+```
+
+#### Ejercicio: accede a elementos dentro de los objetos
+
+-   Accede a la tercera coordenada de `long`.
+
+-   ¿Cúal es la posición del valor máximo de `alt`?
+
+-   Extrae la altitud media del municipio C del *data frame* `municipios`.
+
+-   Accede al tercer elemento del elemento a de `mi_lista`.
+
+```{r}
+#| include: false
+
+# long[3]
+# which.max(alt)
+# municipios[municipios$nombre == "C", "alt_media"]
+```
+
+#### Ejercicio: haciendo estadísticas básicas sobre nuestros vectores
+
+Toma el vector de precipitación y genera un nuevo vector donde reemplaces tres datos por 1000. Realiza las estadísticas básicas de ambos vectores con `summary()`. ¿Es la media suficiente? ¿qué información te dan los extremos?
+
+![](images/summary_allinson.png) [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
