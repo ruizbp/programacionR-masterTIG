@@ -273,6 +273,12 @@ Envia las contestaciones de los ejercicios (2) y (3) por el aula virtual.
 
 # Manipulación de datos: calculo de estadísticas
 
+Podemos calcular estadísticas básicas sobre mtcars, tal y como ya hicimos en la sección anterior lo más fácil sería con `summary()`. Sin embargo, existen múltiples funciones que nos permiten usar y calcular estarísticas básicas de las distintas variables, como la media, la mínima, máxima, desviación estándar, o percentiles.
+
+![](images/statisticsR.png){width="191"}
+
+[Rbase cheatsheet](https://rstudio.github.io/cheatsheets/base-r.pdf)
+
 # Conclusión
 
 -   `select()` = elegir columnas (variables).\
