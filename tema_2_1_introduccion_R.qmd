@@ -478,6 +478,10 @@ mi_lista[[2]]    # segundo elemento (por posición)
 mi_lista$b       # elemento por nombre
 ```
 
+Comprueba con la chuleta de Rbase que sabes seleccionar todos los elementos de un vector:
+
+![](images/indexing_vector.png){width="284"}
+
 **———————————————————————————————————**
 
 #### 📝  Ejercicio: accede a elementos dentro de los objetos
@@ -499,6 +503,12 @@ mi_lista$b       # elemento por nombre
 # which.max(alt)
 # municipios[municipios$nombre == "C", "alt_media"]
 ```
+
+———————————————————————————————————
+
+Ahora vamos a ver cómo seleccionar e indexar elementos de un data.frame:
+
+![](images/clipboard-1941576271.png){width="344"}
 
 ———————————————————————————————————
 
