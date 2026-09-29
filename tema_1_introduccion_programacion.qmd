@@ -274,7 +274,7 @@ En ciencia de datos, es reproducible cuando:
 
 ## ¿Por qué debemos preocuparnos por la reproducibilidad?
 
-![](images/advantages reproducibility.png)
+![](images/advantages%20reproducibility.png)
 
 [The turning way.](https://book.the-turing-way.org/reproducible-research/reproducible-research/)
 
@@ -315,3 +315,111 @@ Responde a las preguntas verdadero / falso disponibles en el aula virtual
 [Tools for reproducible research](https://kbroman.org/Tools4RR)
 
 [*ROpenSci*](https://ropensci.org)
+
+# 🚀 Retos avanzados
+
+¿Ya tienes experiencia programando en R? Si has terminado las actividades del tema, puedes intentar resolver alguno de los siguientes retos.
+
+Estos ejercicios son **opcionales** y están pensados para profundizar en algunos de los conceptos que hemos visto en este tema.
+
+### 🚀 Reto 1. ¿Cómo sabe `summary()` qué tiene que hacer?
+
+En este tema hemos visto que R es un lenguaje orientado a objetos y que una misma función puede comportarse de manera diferente dependiendo de la clase del objeto que recibe.
+
+Ejecuta el siguiente código:
+
+```{r reto 11}
+summary(iris$Species) 
+summary(iris$Sepal.Length) 
+summary(iris) 
+summary(lm(Sepal.Length ~ Petal.Length, data = iris))
+```
+
+**Investiga qué está ocurriendo:**
+
+1.  ¿Obtienes el mismo tipo de resultado en los cuatro casos?
+
+2.  Utiliza `class()` para averiguar la clase de los objetos que estamos pasando a `summary()`.
+
+3.  Ejecuta:
+
+```{r reto 12}
+methods(summary)
+```
+
+4.  Busca en la lista qué métodos podrían haberse utilizado en cada uno de los casos anteriores.
+
+5.  Investiga qué significa que `summary()` sea una **función genérica S3**.
+
+6.  Explica brevemente qué relación tiene este comportamiento con el concepto de **polimorfismo**.
+
+⭐ **Extra:** Si quieres saber exactamente cómo decide R qué método utilizar, instala y carga el paquete `sloop` y prueba:
+
+```{r reto 13}
+# install.packages("sloop") library(sloop)  s3_dispatch(summary(iris$Species)) s3_dispatch(summary(iris$Sepal.Length))
+```
+
+¿Puedes interpretar ahora mejor lo que ocurre cuando ejecutas `summary()`?
+
+### 🚀 Reto 2. ¿R o RStudio? Investiga tu entorno de trabajo
+
+R y RStudio no son lo mismo. Vamos a investigar qué está ocurriendo realmente durante una sesión de trabajo.
+
+Primero crea los siguientes objetos:
+
+```{r reto 21}
+numero <- 25 
+texto <- "Máster TIG" 
+modelo <- lm(Sepal.Length ~ Petal.Length, data = iris)
+```
+
+Ahora explora tu sesión:
+
+```{r reto 22}
+ls() 
+objects()  
+class(numero) 
+class(texto) 
+class(modelo)  
+sessionInfo()
+```
+
+**Responde a las siguientes preguntas:**
+
+1.  ¿Qué muestran `ls()` y `objects()`? ¿Encuentras alguna diferencia entre ambas funciones?
+
+2.  ¿Qué clases tienen los tres objetos que has creado?
+
+3.  ¿Qué información proporciona `sessionInfo()`?
+
+4.  ¿Dónde existen realmente los objetos `numero`, `texto` y `modelo`: en **R** o en **RStudio**?
+
+Ahora guarda tu **script**, pero cierra RStudio **sin guardar el workspace**. Vuelve a abrir RStudio y comprueba si los objetos siguen existiendo.
+
+5.  ¿Siguen estando `numero`, `texto` y `modelo` en tu Environment?
+
+6.  ¿Puedes volver a crearlos?
+
+7.  ¿Qué necesitas conservar para hacerlo?
+
+💡 **Reflexiona:** ¿Por qué, desde el punto de vista de la reproducibilidad, es preferible conservar el código necesario para crear nuestros objetos en lugar de depender de los objetos almacenados en el Environment?
+
+### 🚀 Reto 3. ¿Reproducible, replicable o robusto?
+
+En este tema hemos diferenciado varios conceptos relacionados con la reproducibilidad de un análisis.
+
+Lee las siguientes situaciones:
+
+**Caso A** Un investigador te envía los datos originales utilizados en un artículo, pero no proporciona el código utilizado para realizar los análisis.
+
+**Caso B** Un investigador proporciona los datos originales, todos los scripts necesarios para realizar el análisis y la información sobre las versiones de R y de los paquetes utilizados.
+
+**Caso C** Un grupo independiente recoge **nuevos datos** utilizando el mismo diseño de estudio y realiza el mismo análisis, obteniendo resultados cualitativamente similares.
+
+**Caso D** Otro investigador utiliza **los mismos datos**, pero realiza el análisis mediante un flujo de trabajo diferente implementado en Python y obtiene resultados cualitativamente similares.
+
+**Tu misión:** clasifica cada situación utilizando, cuando corresponda, uno de estos conceptos:
+
+> **Reproducible · Replicable · Robust · None of them**
+
+Justifica cada respuesta en **una sola frase**.
