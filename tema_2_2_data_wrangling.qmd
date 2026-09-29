@@ -271,6 +271,8 @@ Envia las contestaciones de los ejercicios (2) y (3) por el aula virtual.
 
 ------------------------------------------------------------------------
 
+# Manipulación de datos: calculo de estadísticas
+
 # Conclusión
 
 -   `select()` = elegir columnas (variables).\

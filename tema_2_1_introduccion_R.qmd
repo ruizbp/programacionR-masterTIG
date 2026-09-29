@@ -436,6 +436,22 @@ str(info_tig)
 # str(mi_lista)
 ```
 
+## Resumen
+
+———————————————————————————————————
+
+#### 📝 Ejercicio: tipo de datos
+
+¿Sabes cual es la diferencia entre un vector y una lista?
+
+———————————————————————————————————
+
+Aquí, os dejamos una chuleta del número de dimensiones y tipo de datos en las columnas:
+
+#### ![](images/tipo-datos.png){width="346"}
+
+En general, trabajamos con datos rectangulares donde las filas son observaciones y las filas con columnas (volvemos sobre esto en la siguiente sección).
+
 ## Indexación (acceder a elementos)
 
 Saber indexar es esencial: permite leer o modificar valores puntuales.
@@ -493,3 +509,13 @@ Toma el vector de precipitación y genera un nuevo vector donde reemplaces tres 
 ———————————————————————————————————
 
 ![](images/summary_allinson.png) [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
+
+## Quarto
+
+———————————————————————————————————
+
+#### 📝  Ejercicio: crea un quarto para tu cuaderno de clase
+
+Abre el cheatsheet de quarto. Genera un documento en modo visual. Intenta introducir texto plano, códigos ejecutables y alguna imagen desde tu ordenador.
+
+———————————————————————————————————
