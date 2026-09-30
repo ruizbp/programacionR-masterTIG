@@ -143,7 +143,7 @@ ncol(cars_df)
 
 ———————————————————————————————————
 
-#### 📝 Ejercicio: conoce la estructura de tus datos 
+#### 📝 Ejercicio: conoce la estructura de tus datos
 
 Piensa y escribe en una línea qué hace cada función y discutelo con el compañero
 
@@ -175,7 +175,7 @@ select_mtcars_tidyverse <- mtcars |>
   select(mpg, cyl)
 ```
 
-#### 📝 Ejercicio: diferencias entre Rbase y tidyverse 
+#### 📝 Ejercicio: diferencias entre Rbase y tidyverse
 
 ¿Qué es más sencillo de entender? ¿y más reproducible de las tres opciones que hemos visto?
 
@@ -259,7 +259,7 @@ ggplot(mtcars_sorted, aes(x = cyl, y = mpg_cyl)) +
 
 ------------------------------------------------------------------------
 
-#### 📝 Ejercicio: practica la selección y filtrado con la pipa 
+#### 📝 Ejercicio: practica la selección y filtrado con la pipa
 
 Ahora es vuestro turno 💡:
 
@@ -278,6 +278,8 @@ Podemos calcular estadísticas básicas sobre mtcars, tal y como ya hicimos en l
 ![](images/statisticsR.png){width="191"}
 
 [Rbase cheatsheet](https://rstudio.github.io/cheatsheets/base-r.pdf)
+
+#### 📝 Ejercicio: calcular estadisticas básicas
 
 # Conclusión
 

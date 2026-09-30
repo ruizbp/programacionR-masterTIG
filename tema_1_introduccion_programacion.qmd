@@ -86,6 +86,8 @@ Aunque no te interese tanto el análisis de datos, R puede darte algunas oportun
 
 🎯 **RStudio** es un entorno de desarrollo integrado (IDE) para programar en R gratuito y de código abierto.
 
+![](images/Rstudio_entorno.png)
+
 ## ¿Por qué usar RStudio?
 
 -   El re**saltado de sintaxis**, autocompletado de código y sangría inteligente.
