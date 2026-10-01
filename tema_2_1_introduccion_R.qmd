@@ -32,13 +32,11 @@ Antes de empezar. Estamos de acuerdo con el código ético y hacemos un ejemplo 
 
 El operador ":" genera un grupo de números enteros:
 
-```{r}  1:6  #El operador ":" genera un grupo de números enteros c(1, 2, 3, 4, 5, 6) #La función c() concatena}
-```
+`{r}  1:6  #El operador ":" genera un grupo de números enteros c(1, 2, 3, 4, 5, 6) #La función c() concatena}`
 
 Ahora mismo hemos generado un grupo de seis número de enteros, pero no se han guardado en ningún sitio en la memoria del ordenador. Si quieres usar este vector de nuevo, debes guardarlo, creando un objeto en R, para ello debes usar la flecha de asignación \<-.
 
-```{r}  mi_vector <- 1:6 #con la flecha de asignación lo guardo como un objeto R mi_vector <- c(1, 2, 3, 4, 5, 6) #pero no lo tengo guardado en mi carpeta str(mi_vector) #podemos ver la estructura del vector class(mi_vector) summary(mi_vector) #y unas estadisticas básicas}
-```
+`{r}  mi_vector <- 1:6 #con la flecha de asignación lo guardo como un objeto R mi_vector <- c(1, 2, 3, 4, 5, 6) #pero no lo tengo guardado en mi carpeta str(mi_vector) #podemos ver la estructura del vector class(mi_vector) summary(mi_vector) #y unas estadisticas básicas}`
 
 🎯 **Funciones:** objetos de R que toman un vector de entrada y dan como resultado otro vector haciendo una acción concreta (funcionalidad específica). Son los bloques de construcción fundamentales en cualquier script de R que es un lenguaje funcional.
 
@@ -108,7 +106,7 @@ Idealmente **todos los archivos de trabajo** deben estar en la misma carpeta div
 
 💡RStudio guarda por defecto los *scripts* abiertos y los datos cargados de una sesión a otra. Si quieres abrir una sesión limpia cada vez te recomendamos desactivar que se guarde el ***.RData*** en el espacio de trabajo.
 
-![Opciones para crear proyectos en RStudio.](images/diap_29_imagen_01.png){alt="Opciones para crear proyectos en RStudio." width="65%"}
+![Opciones para crear proyectos en RStudio.](images/diap_29_imagen_01.png){width="65%"}
 
 ### Instalar y cargar paquetes
 
@@ -157,7 +155,7 @@ Utiliza **comentarios** para guiar al lector con `#`, acordarte por qué hiciste
 *¡No tienes que seleccionar con el ratón la línea de ejecutar y darle a "Run"! con las techas de más arriba e incluso shift te ahorrara tiempo!*
 
 | Atajo | Efecto |
-|------------------------------------|------------------------------------|
+|----|----|
 | Ctrl + Z | Deshacer |
 | Ctrl + Shift + Z | Rehacer (no es la convención habitual) |
 | Ctrl + O | Abrir archivo |

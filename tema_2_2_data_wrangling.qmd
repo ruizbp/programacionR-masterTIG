@@ -64,16 +64,175 @@ Siempre nos debemos asegurar que nuestros datos siguen un formato "tidy" y volve
 
 ![](images/tidy_friends.jpg){width="382"} [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
 
+———————————————————————————————————
+
 #### 📝 Ejercicio: analiza si son datos tidy
 
 En en aula virtual te hemos dejado cuatro archivos de datos. Analiza si son datos "tidyr", tipos de datos, nº de columnas, nº de filas; así como estadísticas básicas de media, rango, etc.
 
-# Manipulación de datos: filtrado y selección de variables
+———————————————————————————————————
+
+# Importar y renombrar datos
+
+Vamos a trabajar con datos de Tidytuesday y de las librerias de tidyverse principalmente. En todos los casos son datos reales.
+
+Tidytuesday es un proyecto comunitario de ciencia de datos impulsado por la comunidad de R, especialmente por usuarios de tidyverse. Cada martes se publica un dataset limpio y listo para analizar, junto con una breve descripción y enlaces a la fuente original.
+
+![TidyTuesday](images/tidyTuesday_logo.png){alt="TidyTuesday"}
+
+Para aprender a leer y limpiar datos (que es el objetivo de tidyTuesday), vamos a trabajar con un set de datos de esta planaforma; en este caso datos cuisine:
+
++----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ![](images/recetas1_copilot.png) | **CUISINE**                                                                                                                                           |
+|                                  |                                                                                                                                                       |
+|                                  | El dataset de **Cuisine** de TidyTuesday recopila información sobre recetas y tipos de cocina (origen, valor nutricional, tiempo de preparación etc.) |
++----------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+### [Read_delim](https://readr.tidyverse.org/reference/read_delim.html): leer datos desde fuera de R
+
+Leer datos que tenemos almacenados, como por ejemplo, una tabla en formato csv.
+
+```{r read}
+
+library(tidyverse)  
+recetas <- read_delim(file = "data/cuisines.csv", 
+                      delim = ",")  # con el argumento col_type puedo especificar el tipo de dato (en este caso country como factor) 
+recetas <- read_delim(
+  file = "data/cuisines.csv",
+  delim = ",",
+  col_type = list(country = "f", servings = "f")
+)  
+
+recetas   
+View(recetas) 
+summary(recetas) 
+glimpse(recetas)
+```
+
+### [Rename](https://dplyr.tidyverse.org/reference/rename.html): cambiar nombres de variables (columnas)
+
+```{r rename}
+# Consulto el nombre de las columnas 
+names(recetas)  
+# Cambio el nombre y añado la unidad de medida (gramos)
+
+recetas_g <- recetas |>
+  rename(
+    fat_g = fat,
+    carbs_g = carbs,
+    # nombre nuevo = nombre viejo
+    protein_g = protein
+  ) 
+```
+
+📝 Ajustar sangría de código: Ctrl + i; Reformatear código: Ctrl + Shift + a
+
+### [Slice](https://dplyr.tidyverse.org/reference/slice.html): filtrar filas según el índice numérico
+
+Seleccionar filas concretas del set de datos
+
+```{r slice} # warning: false}
+recetas |> 
+  # shortcut para el pipe: CTRL + SHIFT + M   
+  slice(1) # la primera fila  
+
+recetas |>   
+  slice(1, 5) # la fila 1 y la 5  
+
+recetas |>    
+  slice(1:5) # de la fila 1 a la 5  
+
+recetas |>   
+  slice(-c(1:5)) # todas las filas excepto de la 1 a la 5 
+```
+
+### [Filter](https://dplyr.tidyverse.org/reference/filter.html): filtrar filas utilizando condiciones
+
+Se necesita un vector de filtrado que contenga valores lógicos (TRUE/FALSE).
+
+```{r filter}
+recetas |>   
+  filter(country == "Chilean") # filtrar por filas que cumplen un patrón  
+
+#En este caso, todass las recetas chilenas  
+recetas |>   
+  filter(country == "Chilean" & total_time  < 60) # combinar criterios: AND 
+
+#En este caso, todas las recetas chilenas que se preparan en menos de 60 minutos  
+recetas |>   
+  filter(country == "Chilean" | total_time  < 60) 
+# combinar criterios: OR 
+
+
+#En este caso, todas las recetas chilenas (independientemente del tiempo de preparación) o bien aquellas recetas que se preparen en menos de 60mins (independientemente del país)  
+recetas |>   
+  filter(country %in% c("Chilean", "Brazilian", "Peruvian")) # combinar criterios: %in%   
+
+#En este caso, todas las recetas de países del cono sur. Es equivalente a:  
+recetas |>   
+  filter(country == "Chilean" | country == "Brazilian"| country == "Peruvian")  
+```
+
+—————————————————————————————————
+
+####  📝 Ejercicio: slice(), filter(), arrange()
+
++---------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ![](images/mammals_sleeping_picture1_copilot.png) | -   Lee el data.frame “msleep.csv”. Pista: el delimitador entre datos es la coma (“,”).                                                                                                             |
+|                                                   |                                                                                                                                                                                                     |
+|                                                   | -   Crea un subset que NO contenga los animales domésticos (campo conservation). ¿Cuantas son?                                                                                                      |
+|                                                   |                                                                                                                                                                                                     |
+|                                                   | -   Crea un subset de datos que contenga las filas de la 1 a la 5 y de la 18 a la 20, sobre esos datos obten los animales carnívoros. Ordena según las horas de sueño ¿Qué animal duerme más horas? |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: —————————————————————————————————
+
+### [Select](https://dplyr.tidyverse.org/reference/select.html): sirve para seleccionar columnas utilizando condiciones
+
+Permite seleccionar columnas. Las podemos seleccionar por nombre, posición o usando alguna de las condiciones que puedes ver si consultas la ayuda de la función (`?select`).
+
+```{r select}
+names(recetas)  # ?select 
+
+recetas |>   
+  select(name, calories, fat, carbs, protein) #solo nos interesan las columnas con informacion nutricional de cada receta  
+
+recetas |>   
+  select(name, calories, fat, carbs, protein)  # Se puede usar un patron de texto pra seleccionar colmunas 
+
+recetas |>   
+  select(ends_with("time")) # solo nos interesan las columnas relacionadas con el tiempo  
+
+# se pueden utilizar todo tipo de patrones de texto: https://rstudio.github.io/cheatsheets/strings.pdf  
+
+recetas |>   
+  select(name,author, everything()) # se puede usar para reordenar variables  
+
+recetas |>   
+  select(recipes_name=name, country, author, reviews) # y para renombrarlas a la vez que hacemos la seleccion 
+```
+
+—————————————————————————————————
+
+#### 📝 Ejercicio: select()
+
++---------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ![](images/mammals_sleeping_picture2_copilot.png) | -   Con el data set de msleep, crea un nuevo data.frame que contenga las variables relacionadas con el sueño.                                                |
+|                                                   |                                                                                                                                                              |
+|                                                   | -   Con el data set de msleep, crea un nuevo data.frame que contenga todas las variables excepto el estado de conservacion.                                  |
+|                                                   |                                                                                                                                                              |
+|                                                   | -   (extra) Crea un nuevo objeto (data frame) con el orden, género y nombre al principio y que incluya todas las demás columnas excepto el tiempo despierto. |
++---------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: —————————————————————————————————
+
+# Ejercicio completo con mtcars
 
 En esta sección vamos a comparar dos operaciones muy comunes en manipulación de datos:
 
--   `select()` para **elegir columnas (variables)**\
--   `filter()` para **elegir filas (observaciones)**
+-   `select()` para **elegir columnas (variables)**
+-   `slice()` para **seleccionar filas según su posición (observaciones)**
+-   `filter()` para **seleccionar filas según valores (observaciones)**
 
 Primero veremos cómo se hacen en **base R** y luego con el **tidyverse**. Usaremos el dataset incorporado en R llamado `mtcars`, que contiene información de automóviles.
 
@@ -280,6 +439,10 @@ Podemos calcular estadísticas básicas sobre mtcars, tal y como ya hicimos en l
 [Rbase cheatsheet](https://rstudio.github.io/cheatsheets/base-r.pdf)
 
 #### 📝 Ejercicio: calcular estadisticas básicas
+
+# 🚀 Selecciona ejemplos de TidyTuesday y explica los pasos que generalmente se realizan en la limpieza de datos.
+
+<https://rfordatascience.github.io/tidytuesday/about.html>
 
 # Conclusión
 

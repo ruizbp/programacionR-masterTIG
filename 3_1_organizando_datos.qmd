@@ -1,12 +1,21 @@
-# Programación en TIG - Máster en TIG
-
 ---
-title: "Tema 3 - Flujo y Control"
+title: "Tema 3. Flujo control"
+subtitle: "Programación en Tecnologías de la Información Geográfica · Máster Universitario en Tecnologías de la Información Geográfica"
 author: "Paloma Ruiz Benito y Verónica Cruz Alonso"
-date: "2025-11-04"
+date: today
+date-format: "DD/MM/YYYY"
+toc: true
+toc-depth: 4
+toc-title: "Índice"
 format:
   html:
-    code-copy: true
+    link-external-newwindow: true
+    embed-resources: true
+  gfm: default
+editor: visual
+editor_options:
+  chunk_output_type: console
+number-sections: true
 ---
 
 ```{r setup, include = FALSE}
