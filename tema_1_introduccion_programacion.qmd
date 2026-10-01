@@ -312,11 +312,33 @@ Responde a las preguntas verdadero / falso disponibles en el aula virtual
 
 ![*The Pragmatic Programmer*.](images/diap_34_imagen_03.jpg){width="30%" fig-align="left"}
 
-[Posit *cheatsheets*](https://rstudio.github.io/cheatsheets/)
+### ¿Quién responde a mis dudas?
 
-[Tools for reproducible research](https://kbroman.org/Tools4RR)
+-   [RStudio User Guide](https://docs.posit.co/ide/user)
 
-[*ROpenSci*](https://ropensci.org)
+-   [*ROpenSci*](https://ropensci.org) y [Tools for reproducible research](https://kbroman.org/Tools4RR)
+
+-   [Cheatsheet de buenas prácticas en R](https://rstudio.github.io/cheatsheets/R-best-practice.pdf)
+
+-   [Posit Recipes](https://posit.cloud/learn/recipes) y en general [Posit Resources](https://posit.co/resources)
+
+-   Ayuda \> Cheat Sheets
+
+-   [Stack Overflow: plataforma de preguntas y respuestas para programadores profesionales y aficionados](https://stackoverflow.com)
+
+-   [Comunidad de RStudio/Posit](RStudio%20community)
+
+-   [GitHub copilot](https://github.com/features/copilot)
+
+-   [ChatGPT](https://chatgpt.com) y similares
+
+-   Slack del [Grupo de Ecoinformática de la AEET](https://ecoinfaeet.github.io/website/index.html)
+
+-   [Discusiones del repositorio del curso de GitHub](https://github.com/DatSciR/ciencia_datos/discussions/2)
+
+-   Para dudas relacionadas con errores de paquetes: repositorio de GitHub del paquete en cuestión (p. ej. <https://github.com/tidyverse/dplyr/issues>)
+
+-   Pedir ayuda utilizando ejemplos reproducibles con {[reprex](#0)}.
 
 # 🚀 Retos avanzados
 

@@ -268,7 +268,7 @@ Revisa cómo nombras a las tablas y las variables con las que trabajas:
 
 -   ———————————————————————————————————
 
-## Consejo 4: Sintaxis y espaciado
+## Consejo 5: Sintaxis y espaciado
 
 ———————————————————————————————————
 
@@ -329,24 +329,24 @@ Los vectores pueden estar vacíos (tener una longiturd de 0) y esto puede ser ú
 
 ```{r vectores}
 # Vector con coordenadas de latitud
-lat <- c(41.4, 42.1, 40.9, 39.5) 
-lat 
+latitud <- c(41.4, 42.1, 40.9, 39.5) 
+latitud 
 
 # Vector con valores de severidad de incendios (de 0 a 1000)
-sev_inc <- c(110, 450, 440, 200)
-sev_inc 
+severidad_incendios <- c(110, 450, 440, 200)
+severidad_incendios 
 
 # Podemos operar con ellos
-sev_inc + 10       # sumar 10 a todas las everidades
-sev_inc * 0.001    # convertir a 0-1
-mean(sev_inc)      # promedio de severidades
-max(sev_inc)       # severidad máxima
+severidad_incendios + 10       # sumar 10 a todas las everidades
+severidad_incendios * 0.001    # convertir a 0-1
+mean(severidad_incendios)      # promedio de severidades
+max(severidad_incendios)       # severidad máxima
 
 # Tipo de los vectores creados
-str(lat)
-str(alt)
-alt_int <- as.integer(c(110, 450, 440, 200))
-str(alt_int)
+str(latitud)
+length(latitud)
+severidad_incendios_int <- as.integer(c(110, 450, 440, 200))
+str(severidad_incendios_int)
 ```
 
 ![](images/continuos_discrete_allinson.png)Variables continuas y discretas. [Imagen de Allison Horst](https://allisonhorst.com/everything-else)
@@ -370,10 +370,10 @@ Si tu dato es numerico, puede ser discreto (int) o continue (num)
 ```{r sol_vectores}
 #| include: false
 
-# long <- c(-3.7, -3.6, -3.8, -3.9)
-# mean(long)
-# min(long)
-# long_plus <- long + 0.5
+# longitud <- c(-3.7, -3.6, -3.8, -3.9)
+# mean(longitud)
+# min(longitud)
+# longitud_plus <- longitud + 0.5
 ```
 
 🧠 *¿Existe algún otro tipo de dato númerico? Busca información sobre otro tipo de dato.*
@@ -394,7 +394,7 @@ Sobre los datos numéricos, o grupos sobre factor se pueden usar funciones bási
 
 ———————————————————————————————————
 
-### Matrices
+## Matrices
 
 🎯 Las **matrices** son estructuras de datos bidimensionales que contienen datos del mismo tipo. En TIG, pueden servir para representar un **raster** (por ejemplo, una matriz de elevaciones o pendientes).
 
@@ -403,11 +403,11 @@ Sobre los datos numéricos, o grupos sobre factor se pueden usar funciones bási
 incendios <- sample(100:500, size = 15, replace = TRUE)
 
 # Transformar a matriz 3 x 4 (3 filas, 4 columnas)
-mat_elev <- matrix(elev, nrow = 3, ncol = 4)
-mat_elev
+mat_incendios <- matrix(incendios, nrow = 3, ncol = 4)
+mat_incendios
 
 # Resumen de la matriz
-summary(mat_elev)
+summary(mat_incendios)
 ```
 
 ———————————————————————————————————
@@ -424,7 +424,7 @@ summary(mat_elev)
 #| include: false
 
 # mat5 <- matrix(runif(25, min = 0, max = 1), nrow = 5, ncol = 5) 
-#genera números aleatorios con distribución uniforme
+# genera números aleatorios con distribución uniforme
 # max_val <- max(mat5)
 # which(mat5 == max_val, arr.ind = TRUE)  # fila, columna del máximo
 ```
@@ -436,8 +436,9 @@ summary(mat_elev)
 ```{r dataframes}
 incendios <- data.frame(
                 nombre = c("A", "B", "C", "D"),
-                lat = c(41.4, 42.1, 40.9, 39.5), 
-                sev_inc <- c(110, 450, 440, 200))
+                tipo = c("copa", "copa", "superficie", "superficie"),
+                latitud = c(41.4, 42.1, 40.9, 39.5), 
+                severidad_incendio <- c(110, 450, 440, 200))
 
 incendios
 summary(incendios)
@@ -449,15 +450,7 @@ summary(incendios)
 
 Crea un *data frame* llamado incendios con todas las variables previas. Cuando trabajamos con un data.frame o cualquier otro objeto, lo primero que debemos conocer es su estructura: número de observaciones o filas, número de columnas o variables, tipo de dato (númerico o carácter, y de qué tipo).
 
-⚠️ Lo siguiente que debemos conocer son las características básicas *¿conoces tus datos?.* **Siempre responde a estas preguntas básicas** de la variable de interés:
-
--   ¿medidas de centralidad (e.g. media, moda, mediana)?
-
--   ¿y medidas de dispersión (rangos, percentiles, valores anómales, desviación estandar y error estándar?
-
--   ¿varian por ciertos niveles del factor (e.g. ¿especie de pingüino?).
-
--   ¿Tienes ceros o valores nulos entus datos? ¿Por qué?
+⚠️ Lo siguiente que debemos conocer son las características básicas *¿conoces tus datos?.*
 
 ```{r sol_dataframes}
 #| include: false
@@ -493,15 +486,31 @@ La creación de vectores se usa mucho en programación. Revisa en la [chuleta de
 
 ———————————————————————————————————
 
+#### 📝🚀 Ejercicio: Siempre responde a estas preguntas básicas de las variable de interéss
+
+-   ¿que rango máximo tienen mis datos? ¿y qué percentiles?¿tengo valores anómalos? ¿por qué?
+
+-   ¿medidas de centralidad (e.g. media, moda, mediana)?
+
+-   ¿y medidas de dispersión (rangos, percentiles, valores anómales, desviación estandar y error estándar?
+
+-   ¿varian por ciertos niveles del factor (e.g. ¿tipo de incendio?).
+
+¿Tienes ceros o valores nulos entus datos? ¿Por qué?
+
+Para responder a estas cuestiones, debes usar funciones estandar como `summary()`, pero también revisa la chulta de rbase. Además, prueba a hacer gráficos sencillos con la función `plot()`.
+
+———————————————————————————————————
+
 ## Listas
 
 🎯 Una **lista** puede contener todo tipo de objetos: vectores, matrices, data.frames, modelos, etc. En TIG es muy útil para agrupar varias capas o resultados de un análisis en un único objeto.
 
 ```{r listas}
 info_tig <- list(
-  coords = list(lat = lat, long = c(-3.7, -3.6, -3.8, -3.9)),
-  municipios = municipios,
-  elev_matrix = mat_elev
+  coords = list(latitud = latitud, longitud = c(-3.7, -3.6, -3.8, -3.9)),
+  tipo = c("copa", "copa", "superficie", "superficie"),
+  mat_incendios = mat_incendios
 )
 
 str(info_tig)
@@ -511,7 +520,7 @@ str(info_tig)
 
 #### 📝 Ejercicio: crea una lista y accede a sus elementos
 
--   Crea una lista que contenga: tu vector `long`, la matriz 5 x 5 `mat5` y el *data frame* `rios`.
+-   Crea una lista que contenga: tu vector `longitud`, la matriz 5 x 5 `mat5` y el *data frame* `incendios`.
 
 ———————————————————————————————————
 
@@ -541,23 +550,25 @@ En general, trabajamos con datos rectangulares donde las filas son observaciones
 
 ## Indexación (acceder a elementos)
 
-Saber indexar es esencial: permite leer o modificar valores puntuales.
+Saber indexar es esencial: permite leer o modificar valores puntuales. Ahora vamos a ver cómo seleccionar e indexar elementos de vectores, data.frames, matrices y listas:
+
+![](images/clipboard-1941576271.png){width="344"}
 
 ```{r indexacion}
 # Vectores
-alt
-alt[2]          # segunda altitud
+severidad_incendios
+severidad_incendios[2]          # segundo evento
 
 # Matrices: [fila, columna]
-mat_elev
-mat_elev[1, 3]  # fila 1, columna 3
-mat_elev[1, ]   # todas las columnas de la fila 1
-mat_elev[, 2]   # todas las filas de la columna 2
+mat_incendios
+mat_incendios[1, 3]  # fila 1, columna 3
+mat_incendios[1, ]   # todas las columnas de la fila 1
+mat_incendios[, 2]   # todas las filas de la columna 2
 
 # Data.frame
-municipios
-municipios[2, "poblacion"]   # población del municipio B
-municipios$poblacion         # vector de la columna 'poblacion'
+incendios
+incendios[2, "nombre"]   # nombre del municipio "B" del segundo evento
+incendios$nombre         # vector de la columna 'nombre'
 
 # Listas
 mi_lista <- list(a = 1:4, b = letters[1:4])
@@ -567,21 +578,19 @@ mi_lista$b       # elemento por nombre
 
 Comprueba con la chuleta de Rbase que sabes seleccionar todos los elementos de un vector:
 
-![](images/indexing_vector.png){width="284"}
+![rbase chuleta](images/indexing_vector.png){width="284"}
 
 **———————————————————————————————————**
 
 #### 📝 Ejercicio: accede a elementos dentro de los objetos
 
--   Accede a la tercera coordenada de `long`.
+-   Accede a la tercera coordenada de `longitud`.
 
--   ¿Cúal es la posición del valor máximo de `alt`?
+-   ¿Cúal es la posición del valor máximo de `severidad_incendios`?
 
--   Extrae la altitud media del municipio C del *data frame* `municipios`.
+-   Extrae la severidad de invendios media del municipio C del *data frame* `incendios`.
 
 -   Accede al tercer elemento del elemento a de `mi_lista`.
-
-———————————————————————————————————
 
 ```{r}
 #| include: false
@@ -593,26 +602,12 @@ Comprueba con la chuleta de Rbase que sabes seleccionar todos los elementos de u
 
 ———————————————————————————————————
 
-Ahora vamos a ver cómo seleccionar e indexar elementos de un data.frame:
-
-![](images/clipboard-1941576271.png){width="344"}
-
 ———————————————————————————————————
 
-#### 📝 Ejercicio: haciendo estadísticas básicas sobre nuestros vectores
+#### 📝🚀 Ejercicio: haciendo estadísticas básicas sobre nuestros vectores
 
 Toma el vector de precipitación y genera un nuevo vector donde reemplaces tres datos por 1000. Realiza las estadísticas básicas de ambos vectores con `summary()`. ¿Es la media suficiente? ¿qué información te dan los extremos?
 
 ———————————————————————————————————
 
 ![](images/summary_allinson.png) [Imagen de Allson Horst](https://allisonhorst.com/everything-else)
-
-## Quarto
-
-———————————————————————————————————
-
-#### 📝 Ejercicio: crea un quarto para tu cuaderno de clase
-
-Abre el cheatsheet de quarto. Genera un documento en modo visual. Intenta introducir texto plano, códigos ejecutables y alguna imagen desde tu ordenador.
-
-———————————————————————————————————
