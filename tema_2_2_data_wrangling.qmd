@@ -68,7 +68,7 @@ Siempre nos debemos asegurar que nuestros datos siguen un formato "tidy" y volve
 
 #### 📝 Ejercicio: analiza si son datos tidy
 
-En en aula virtual te hemos dejado cuatro archivos de datos. Analiza si son datos "tidyr", tipos de datos, nº de columnas, nº de filas; así como estadísticas básicas de media, rango, etc.
+En en aula virtual te hemos dejado un archivo de dato "co_data.csv": leelo usando la función `read_csv()` o `read.csv()`. Analiza si son datos "tidyr", tipos de datos, nº de columnas, nº de filas; así como estadísticas básicas de media, rango, etc.
 
 ———————————————————————————————————
 
@@ -438,7 +438,25 @@ Podemos calcular estadísticas básicas sobre mtcars, tal y como ya hicimos en l
 
 [Rbase cheatsheet](https://rstudio.github.io/cheatsheets/base-r.pdf)
 
-#### 📝 Ejercicio: calcular estadisticas básicas
+Por favor, cuando calcules estatadísticas básicas sigue el protocolo para la exploración de datos que te facilito en al aula virtual, siguiendo [Zuur et al. (2009)](https://besjournals.onlinelibrary.wiley.com/doi/epdf/10.1111/j.2041-210X.2009.00001.x) y los siguientes principios:
+
+![[Zuur et al. (2009) Methods in Ecology and Evolution](https://besjournals.onlinelibrary.wiley.com/doi/epdf/10.1111/j.2041-210X.2009.00001.x)](images/protocol_data_exploration.png){width="360"}
+
+Repasa cada uno de los puntos sugeridos para una buena exploración de datos, y considera ¿tengo claro todos los puntos? Yo suelo usar cinco bloques en el análisis exploratior
+
+-   **(0)** **Estructura de datos**: ¿qué unidad muestral tengo? ¿cuantas filas?; ¿Qué variables tengo?¿cuántas columnas y con qué unidades?; ¿Qué tipo de datos son cada columna?
+
+-   **(1) Datos ánomalos, ceros y celdas vacias**: ¿son reales? ¿Qué significado tienen en mis datos? ¿cómo debo tratarlos?
+
+-   **(2) Distribución de las variables**: ¿Proporciono medidas de centralidad y desviación de mis variables? ¿Son los datos normales? ¿Son homogéneos? ¿Debo eliminar, transformar o ignorar la distribución de las variables? ¿qué consecuencias tiene los cambios realizados?
+
+-   **(3) Relaciones e interacciones**: ¿Son importantes las relaciones entre variables para el análisis que quiero hacer?
+
+-   **(4) Colinealidad o correlaciones**: ¿Tengo colinealidad en mis datos?
+
+-   **(5) Independencia**: ¿son mis datos independientes entre si?
+
+#### 📝 Ejercicio: calcular estadisticas básicas. Repasa cada uno de los puntos propuestos en Zuur et al. (2009) o los cinco puntos propuestos más arriba.
 
 # 🚀 Selecciona ejemplos de TidyTuesday y explica los pasos que generalmente se realizan en la limpieza de datos.
 
