@@ -1,5 +1,4 @@
 ---
----
 title: "Tema 2. EXTRA. Trabajo reproducible y colaborativo: quarto y git"
 subtitle: "Programación en Tecnologías de la Información Geográfica · Máster Universitario en Tecnologías de la Información Geográfica"
 author: "Verónica Cruz Alonso y Paloma Ruiz Benito"

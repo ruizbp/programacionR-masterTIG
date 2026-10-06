@@ -78,7 +78,7 @@ Vamos a trabajar con datos de Tidytuesday y de las librerias de tidyverse princi
 
 Tidytuesday es un proyecto comunitario de ciencia de datos impulsado por la comunidad de R, especialmente por usuarios de tidyverse. Cada martes se publica un dataset limpio y listo para analizar, junto con una breve descripción y enlaces a la fuente original.
 
-![TidyTuesday](images/tidyTuesday_logo.png){alt="TidyTuesday"}
+![TidyTuesday](images/tidyTuesday_logo.png)
 
 Para aprender a leer y limpiar datos (que es el objetivo de tidyTuesday), vamos a trabajar con un set de datos de esta planaforma; en este caso datos cuisine:
 
@@ -175,7 +175,7 @@ recetas |>
 
 —————————————————————————————————
 
-####  📝 Ejercicio: slice(), filter(), arrange()
+#### 📝 Ejercicio: slice(), filter(), arrange()
 
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ![](images/mammals_sleeping_picture1_copilot.png) | -   Lee el data.frame “msleep.csv”. Pista: el delimitador entre datos es la coma (“,”).                                                                                                             |

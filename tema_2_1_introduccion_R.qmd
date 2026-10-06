@@ -32,11 +32,24 @@ Antes de empezar. Estamos de acuerdo con el código ético y hacemos un ejemplo 
 
 El operador ":" genera un grupo de números enteros:
 
-`{r}  1:6  #El operador ":" genera un grupo de números enteros c(1, 2, 3, 4, 5, 6) #La función c() concatena}`
+```{r entero}
+
+1:6  #El operador ":" genera un grupo de números enteros 
+c(1, 2, 3, 4, 5, 6) #La función c() concatena}
+
+```
 
 Ahora mismo hemos generado un grupo de seis número de enteros, pero no se han guardado en ningún sitio en la memoria del ordenador. Si quieres usar este vector de nuevo, debes guardarlo, creando un objeto en R, para ello debes usar la flecha de asignación \<-.
 
-`{r}  mi_vector <- 1:6 #con la flecha de asignación lo guardo como un objeto R mi_vector <- c(1, 2, 3, 4, 5, 6) #pero no lo tengo guardado en mi carpeta str(mi_vector) #podemos ver la estructura del vector class(mi_vector) summary(mi_vector) #y unas estadisticas básicas}`
+```{r objeto}
+
+mi_vector <- 1:6 #con la flecha de asignación lo guardo como un objeto R
+
+mi_vector <- c(1, 2, 3, 4, 5, 6) #pero no lo tengo guardado en mi carpeta 
+str(mi_vector) #podemos ver la estructura del vector 
+class(mi_vector) 
+summary(mi_vector) #y unas estadisticas básicas}
+```
 
 🎯 **Funciones:** objetos de R que toman un vector de entrada y dan como resultado otro vector haciendo una acción concreta (funcionalidad específica). Son los bloques de construcción fundamentales en cualquier script de R que es un lenguaje funcional.
 
@@ -115,7 +128,7 @@ La primera vez que necesitas un paquete o librería lo instalas con la función 
 ```{r instalar}
 # install.packages("tidyverse", dep = T) 
 # dep = T significa instalar dependencias   
-#library(tidyverse)   
+library(tidyverse)   
 ```
 
 ———————————————————————————————————
@@ -155,7 +168,7 @@ Utiliza **comentarios** para guiar al lector con `#`, acordarte por qué hiciste
 *¡No tienes que seleccionar con el ratón la línea de ejecutar y darle a "Run"! con las techas de más arriba e incluso shift te ahorrara tiempo!*
 
 | Atajo | Efecto |
-|----|----|
+|------------------------------------|------------------------------------|
 | Ctrl + Z | Deshacer |
 | Ctrl + Shift + Z | Rehacer (no es la convención habitual) |
 | Ctrl + O | Abrir archivo |
@@ -258,13 +271,13 @@ Lee la **guía de estilo** de tidyverse (con la que trabajaremos en el curso):
 
 -   Sección 4.1. y 4.2.: <https://style.tidyverse.org/syntax.html>
 
-Revisa cómo nombras a las tablas y las variables con las que trabajas:
+Revisa cómo nombras a los objetos y las variables con las que trabajas:
 
 -   ¿siguen un buen estilo a la hora de nombrarlas?
 
 -   ¿trabajas en proyectos y tienes todo ordenado adecuadamente
 
--   ———————————————————————————————————
+———————————————————————————————————
 
 ## Consejo 5: Sintaxis y espaciado
 
@@ -272,7 +285,7 @@ Revisa cómo nombras a las tablas y las variables con las que trabajas:
 
 #### 📝 Ejercicio: sintaxis y estilo en R.
 
-Lee la Guía de estilo de Tidyverse y corrige el siguiente código para que sea más legible por otra persona.
+Lee la [Guía de estilo de Tidyverse](https://style.tidyverse.org/files.html) y corrige el siguiente código para que sea más legible por otra persona.
 
 ```{r errore_}
 #|eval: false
@@ -444,7 +457,7 @@ summary(incendios)
 
 ———————————————————————————————————
 
-#### 📝 Ejercicio: crea un data frame completo.
+#### 📝 Ejercicio: crea un data frame completo
 
 Crea un *data frame* llamado incendios con todas las variables previas. Cuando trabajamos con un data.frame o cualquier otro objeto, lo primero que debemos conocer es su estructura: número de observaciones o filas, número de columnas o variables, tipo de dato (númerico o carácter, y de qué tipo).
 
@@ -494,7 +507,7 @@ La creación de vectores se usa mucho en programación. Revisa en la [chuleta de
 
 -   ¿varian por ciertos niveles del factor (e.g. ¿tipo de incendio?).
 
-¿Tienes ceros o valores nulos entus datos? ¿Por qué?
+-   ¿Tienes ceros o valores nulos entus datos? ¿Por qué?
 
 Para responder a estas cuestiones, debes usar funciones estandar como `summary()`, pero también revisa la chulta de rbase. Además, prueba a hacer gráficos sencillos con la función `plot()`.
 
