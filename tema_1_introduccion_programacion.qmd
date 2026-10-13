@@ -281,7 +281,7 @@ En ciencia de datos, es reproducible cuando:
 [The turning way.](https://book.the-turing-way.org/reproducible-research/reproducible-research/)
 
 | Ventajas | Desventajas |
-|------------------------------------|------------------------------------|
+|----|----|
 | Registro completo de la historia y metodología | Mayor esfuerzo técnico y documental |
 | Facilita colaboración, revisión y publicación validada | Requiere habilidades no siempre disponibles o incentivadas |
 | Aumenta confianza, visibilidad y reconocimiento académico | Sobrecarga inicial de trabajo (tests, documentación) |
