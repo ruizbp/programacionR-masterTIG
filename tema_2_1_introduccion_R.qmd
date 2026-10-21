@@ -168,7 +168,7 @@ Utiliza **comentarios** para guiar al lector con `#`, acordarte por qué hiciste
 *¡No tienes que seleccionar con el ratón la línea de ejecutar y darle a "Run"! con las techas de más arriba e incluso shift te ahorrara tiempo!*
 
 | Atajo | Efecto |
-|------------------------------------|------------------------------------|
+|----|----|
 | Ctrl + Z | Deshacer |
 | Ctrl + Shift + Z | Rehacer (no es la convención habitual) |
 | Ctrl + O | Abrir archivo |

@@ -181,7 +181,7 @@ recetas_modif <- recetas |>
 
 ------------------------------------------------------------------------
 
-#### 📝  *Ejercicio: mutate()*
+#### 📝 *Ejercicio: mutate()*
 
 +---------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ![](images/mammals_sleeping_picture3_copilot.png) | -   Con el data set de msleep, incluye una nueva columna con el porcentaje de horas que duerme cada animal al día.                                                                                                                                                                                                   |
@@ -259,7 +259,7 @@ recetas_Vietnam_wide <- recetas_Vietnam_long |>
               values_from = value)
 ```
 
-#### 📝🚀  *Ejercicio extra: transformar datos largo ancho*
+#### 📝🚀 *Ejercicio extra: transformar datos largo ancho*
 
 +-------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ![](images/pixar_image2_flickr.jpg) | -   Lee el set de datos pixar_public_response_long. En este set de datos se encuentra la puntuación de películas pixar por la audiencia según tres webs diferentes: rotten tomatoes, metacritic y critics’ choice. |
