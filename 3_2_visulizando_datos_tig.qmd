@@ -79,10 +79,7 @@ La sintaxis general para crear un gráfico en **`ggplot2`** sigue este patrón:
 
 Creamos un histograma para visualizar la distribución de la longitud del pico de los pingüinos.
 
-```{r}
-#| label: fig-histograma-pinguinos 
-#| fig-cap: "Histograma de la longitud del pico de los pingüinos" 
-#| fig-alt: "Histograma que muestra la distribución de la longitud del pico en milímetros de los pingüinos"  
+```{r histograma}
 
 ggplot(data = penguins, aes(x = bill_length_mm)) +   
   geom_histogram(binwidth = 1, fill = "steelblue", color = "black") +  
@@ -94,7 +91,7 @@ La función `ggplot()` inicializa el sistema de gráficos y establece el marco d
 
 Al ejecutar solo `ggplot(data = penguins)`, obtenemos un panel vacío porque no hemos definido qué variables representar ni cómo visualizarlas.
 
-```{r echo = TRUE}
+```{r lienzo}
 #| fig-cap: "Lienzo en blanco. Aún no hemos comenzado a representar nada. Únicamente le hemos dicho a RStudio que queremos visualizar algo" 
 ggplot(data = penguins)
 ```
@@ -117,7 +114,7 @@ La función *aes(),* abreviatura de "aesthetics", define las asignaciones estét
 
 En el siguiente código, asignamos la especie de pingüino al eje X, pero aún **no especificamos ninguna geometría** para representar visualmente estos datos.
 
-```{r aes-1, echo  =TRUE}
+```{r aes-1, echo = TRUE}
 #| fig-cap: "Variables añadidas pero sin representar aún la geometría"
  ggplot(data = penguins, 
         aes(x = species)) 
@@ -171,17 +168,17 @@ Comenzamos creando un gráfico base de diagramas de caja que relaciona la especi
 
 ```{r grafico}
 # Gráfico base 
-miplot1 <- ggplot(data = penguins) +    
+penguins_boxplot <- ggplot(data = penguins) +    
   geom_boxplot(aes(x = species, y = body_mass_g))  
 
-miplot1
+penguins_boxplot
 ```
 
 Ahora aplicamos la función `labs()` para añadir todos los elementos textuales necesarios: título principal, subtítulo contextual, etiquetas descriptivas para ambos ejes y un pie de figura que indica la fuente de los datos.
 
 ```{r grafico-2} # Añadir etiquetas descriptivas}
 
-miplot1 +    
+penguins_boxplot  +    
   labs(title = "Masa corporal de los pingüinos por especie",     
        subtitle = "Datos de las tres islas",     
        x = "Especie",     y = "Masa corporal (g)",     
@@ -198,7 +195,7 @@ La función `coord_cartesian()` permite enfocar en una región específica del g
 
 ```{r coordenadas}
 # Zoom en el eje Y 
-miplot1 +   
+penguins_boxplot +   
   coord_cartesian(ylim = c(2000, 4500))
 ```
 
@@ -206,12 +203,12 @@ En contraste, cuando se usan límites directamente en la escala (`scale_*_contin
 
 ```{r coordenadas 2}
 # Límite en escala que SÍ descarta datos (observaciones fuera de 2000-6000 se eliminan) 
-miplot1 +   
+penguins_boxplot +   
   scale_y_continuous(limits = c(2000, 4500))  
 
 # Equivalente usando ylim() - también descarta datos 
 
-miplot1 +   
+penguins_boxplot +   
   ylim(2000, 4500)
 ```
 
@@ -274,7 +271,7 @@ El **faceting** es una técnica de `ggplot2` que permite **dividir un mismo grá
 Antes de aplicar faceting, es fundamental construir un **gráfico base** que represente correctamente la relación que queremos analizar. En este ejemplo, estudiaremos la relación entre la masa corporal y la longitud de la aleta de los pingüinos, diferenciando las especies mediante color.
 
 ```{r facets}
-miplot2 <- ggplot(   
+penguins_plot <- ggplot(   
   data = penguins,   
   aes(     
     x = body_mass_g,     
@@ -283,7 +280,7 @@ miplot2 <- ggplot(
     ) ) +   
   geom_point(na.rm = TRUE)  
 
-miplot2
+penguins_plot
 ```
 
 Este gráfico muestra **todos los individuos juntos**. Permite observar la tendencia general, pero no facilita la comparación entre grupos específicos como islas o sexos.
@@ -294,10 +291,10 @@ Para analizar si la relación entre masa corporal y longitud de aleta varía seg
 
 ```{r facets-2} # Facet en filas}
 
-miplot2 +   
+penguins_plot +   
   facet_wrap(vars(island))  
 
-miplot2 +   
+penguins_plot +   
   facet_wrap(~island)
 ```
 
@@ -313,11 +310,11 @@ En el siguiente ejemplo, los datos se separan por especie (filas) e isla (column
 
 ```{r facets-3}
 
-miplot2 +   
+penguins_plot +   
   facet_grid(rows = vars(species), 
              cols = vars(island))  
 
-miplot2 +   
+penguins_plot +   
   facet_grid(species ~ island)
 ```
 
@@ -337,7 +334,7 @@ Aunque ambas funciones crean múltiples paneles, tienen usos distintos:
 
 # Facet wrap (organiza en rejilla) 
 
-miplot2 +    
+penguins_plot +    
   facet_wrap(facets = vars(species), ncol = 3)
 ```
 
@@ -356,7 +353,7 @@ El faceting no añade datos nuevos, pero **organiza la información de forma que
 Por defecto, todos los paneles utilizan la misma escala en los ejes, lo que facilita la comparación entre grupos.
 
 ```{r facets-5}
-miplot2 +   
+penguins_plot +   
   facet_wrap(vars(island))
 ```
 
@@ -364,7 +361,7 @@ Sin embargo, en algunos casos puede ser útil permitir que cada panel tenga su p
 
 ```{r facets-6}
 
-miplot2 +   
+penguins_plot +   
   facet_wrap(vars(island), scales = "free")
 ```
 
@@ -379,7 +376,7 @@ miplot2 +
 
 ------------------------------------------------------------------------
 
-#### 📝  Ejercicio: faceting
+#### 📝 Ejercicio: faceting
 
 Visualiza la relación entre masa corporal (body_mass_g) y longitud de aleta (flipper_length_mm) diferenciando por sexo y especie. Crea un gráfico de dispersión de *body_mass_g* vs *flipper_length_mm*, coloreando los puntos por species.
 
@@ -447,7 +444,7 @@ Para visualizar datos numericos en múltiples ocasiones estamos interesados en l
 
 Para ello vamos a aprender a hacer gráficos básicos con esta información. Empezamos por el **histograma**.
 
-```{r}
+```{r histogram1}
 ggplot(penguins, 
   aes(bill_depth_mm)) +
   geom_histogram()
@@ -455,7 +452,7 @@ ggplot(penguins,
 
 Este gráfico se debe mejorar, poniendo los ejes de una manera adecuada, etc.
 
-```{r}
+```{r histogram2}
 ggplot(penguins, 
   aes(bill_depth_mm,
       fill = species)) +
@@ -468,7 +465,7 @@ ggplot(penguins,
 
 No es muy sencillo de comparar, por lo que podríamos usar las facetas.
 
-```{r}
+```{r histogram3}
 ggplot(penguins, 
   aes(bill_depth_mm,
       fill = species)) +
@@ -591,7 +588,7 @@ Histograma con binwidth adecuado (`geom_histogram`): Cuando queremos mantener la
 
 ------------------------------------------------------------------------
 
-#### 📝  Ejercicio: exploración de datos cualitativos
+#### 📝 Ejercicio: exploración de datos cualitativos
 
 1.  Identifica qué variable(s) se pueden graficar con un `geom_bar()`.
 
@@ -603,7 +600,7 @@ Responde a las siguientes preguntas: ¿Cuál es la especie/isla más frecuente?;
 
 ------------------------------------------------------------------------
 
-#### 📝  Ejercicio: exploración de datos cuantitativos
+#### 📝 Ejercicio: exploración de datos cuantitativos
 
 Usando las variables: bill_length_mm, bill_depth_mm, body_mass_g:
 
@@ -619,8 +616,7 @@ Usando las variables: bill_length_mm, bill_depth_mm, body_mass_g:
 
 ## Visualización de datos numericos: bivariante
 
-Mientras que los gráficos unidimensionales nos permiten explorar una sola variable a la vez, los gráficos bidimensionales nos permiten examinar relaciones entre dos variables. Este tipo de visualizaciones es fundamental para identificar correlaciones, patrones y tendencias en
-nuestros datos.
+Mientras que los gráficos unidimensionales nos permiten explorar una sola variable a la vez, los gráficos bidimensionales nos permiten examinar relaciones entre dos variables. Este tipo de visualizaciones es fundamental para identificar correlaciones, patrones y tendencias en nuestros datos.
 
 #### Gráfico de dispersión
 
@@ -686,7 +682,7 @@ ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
 
 Además, podríamos ver la relación entre dos variables, por ejemplo, incluyendo una linea. Esta información está sacada de (aquí)\[https://allisonhorst.github.io/palmerpenguins/articles/examples.html\]
 
-```{r}
+```{r scatter-smooth}
 bill_len_dep <- ggplot(data = penguins,
                          aes(x = bill_length_mm,
                              y = bill_depth_mm,
@@ -815,7 +811,7 @@ Instrucciones:
 
 ------------------------------------------------------------------------
 
-###  *Aesthetics* vs. argumentos estéticos
+### *Aesthetics* vs. argumentos estéticos
 
 Es crucial entender la diferencia entre definir propiedades estéticas dentro de `aes()`, que **están vinculadas a variables**, y fuera de `aes()`, que son valores fijos que **afectarán a la totalidad de los componentes del gráfico**:
 
@@ -889,7 +885,8 @@ Cuando queremos saber cuántas observaciones hay en cada categoría. El conteo r
 
 ```{r geom-bar}
 
-ggplot(penguins, aes(x = species, fill = sex)) +
+ggplot(penguins, 
+       aes(x = species, fill = sex)) +
   geom_bar() 
 ```
 
@@ -936,13 +933,13 @@ Dicho de forma sencilla: **Las escalas controlan cómo los datos se convierten e
 Observa el siguiente gráfico:
 
 ```{r colores}
-miplot2 <- ggplot(penguins,        
+penguins_plot <- ggplot(penguins,        
                   aes(x = body_mass_g,            
                       y = flipper_length_mm,            
                       color = species)) +   
   geom_point(na.rm = TRUE) 
 
-miplot2
+penguins_plot
 ```
 
 Aquí ocurre lo siguiente:
@@ -980,17 +977,18 @@ Ejemplos:
 Cuando la variable es **categórica**, suele ser buena idea **elegir los colores manualmente**, sobre todo en gráficos para informes o presentaciones.
 
 ```{r colores-2}
-
-miplot2 <- ggplot(penguins,   
+penguins_plot <- ggplot(penguins,   
                   aes(x = body_mass_g,     
                       y = flipper_length_mm,     
-                      color = species   ) ) +   
+                      color = species   
+                      ) ) +   
   geom_point(na.rm = TRUE)  
-miplot2
+
+penguins_plot
 ```
 
 ```{r colores_3}
-miplot2 +   
+penguins_plot +   
   scale_color_manual(     
     values = c("darkorange", "purple", "cyan4"),     
     labels = c("Adelie", "Chinstrap", "Gentoo")   
@@ -1011,7 +1009,7 @@ Las escalas no solo controlan colores, también los ejes.
 
 ```{r colores_4}
 
-miplot2 +   
+penguins_plot +   
   scale_y_continuous(     
     breaks = c(180, 200, 220),     
     labels = c("Bajo", "Medio", "Alto")   
@@ -1022,11 +1020,12 @@ miplot2 +
 
 Cuando la variable mapeada al color es **numérica**, lo habitual es usar un **gradiente de color**.
 
-```{r}  ggplot(penguins,}
-            aes(x = body_mass_g,            
-                y = flipper_length_mm,            
-                color = body_mass_g)) +   
-  geom_point(na.rm = TRUE, size = 3) +   
+```{r colores_4b}
+ggplot(penguins,     
+       aes(x = body_mass_g,                             
+           y = flipper_length_mm,                             
+           color = body_mass_g)) +      
+  geom_point(na.rm = TRUE, size = 3) +      
   scale_color_gradient(low = "blue", high = "yellow")
 ```
 
@@ -1088,13 +1087,11 @@ ggplot(penguins,
   scale_color_viridis_c()
 ```
 
-Esta es la opción recomendada por defecto en la mayoría de contextos analíticos y divulgativos.
+Esta es la opción recomendada por defecto en la mayoría de contextos analíticos y divulgativos. El tipo de paleta debe elegirse en función del tipo de variable que representa el color:
 
-El tipo de paleta debe elegirse en función del tipo de variable que representa el color:
+-   **categórica → paleta cualitativa**,
 
-**categórica → paleta cualitativa**,
-
-**numérica → paleta secuencial o gradiente**.
+-   **numérica → paleta secuencial o gradiente**.
 
 ## Temas en ggplot2: controlar la apariencia del gráfico
 
@@ -1126,16 +1123,20 @@ De este modo, cualquier cambio visual se debe únicamente al tema.
 ```{r themes-0}
 
 base_plot <- ggplot(   
-  penguins,   aes(     x = body_mass_g,     
-                       y = flipper_length_mm,     
-                       color = species   ) ) +   
+  penguins,   
+  aes(     
+    x = body_mass_g,     
+    y = flipper_length_mm,     
+    color = species   
+    ) ) +   
   geom_point(alpha = 0.7, na.rm = TRUE) +   
   labs(     
     title = "Relación entre masa corporal y longitud de aleta",     
     subtitle = "Datos de pingüinos Palmer",     
     x = "Masa corporal (g)",     
     y = "Longitud de aleta (mm)",     
-    color = "Especie"   )  
+    color = "Especie"   
+    )  
 
 base_plot 
 ```
@@ -1371,18 +1372,557 @@ Tareas del reto:
 
 ### 🧠 Lecturas sobre buenas prácticas en visualización
 
-#### 1. - *Fundamentals of Data Visualization* – Claus O. Wilke
+#### *Fundamentals of Data Visualization* – Claus O. Wilke
 
 **🔗 <https://clauswilke.com/dataviz/>**
 
-#### 2. - ggplot2: Elengant Graphics for Data Analysis - Hadley Wickham
+#### ggplot2: Elengant Graphics for Data Analysis - Hadley Wickham
 
 **🔗 <https://ggplot2-book.org/>**
 
-#### 3. - R Graph Gallery
+#### R Graph Gallery
 
 **🔗 <https://r-graph-gallery.com/>**
 
 #### 🎥 Vídeos (cortos y claros)
 
-#### 4. - Canal de YouTube: *R Programming 101 / Pablo Vallejo Medina (chupitos de R)*
+#### Canal de YouTube: *R Programming 101 / Pablo Vallejo Medina (chupitos de R)*
+
+## Mapas con `ggplot2`: Introducción a la visualización de datos espaciales
+
+La representación de mapas es una parte fundamental de muchas disciplinas, desde la ecología y geografía hasta la salud pública y la sociología. En R, podemos crear mapas de alta calidad utilizando `ggplot2`, siempre que transformemos los datos espaciales en un formato estructurado que ggplot pueda entender.
+
+Existen dos tipos principales de datos espaciales: raster y vectorial. Los datos raster están compuestos por una matriz de píxeles (cada uno con un valor), mientras que los datos vectoriales están compuestos por puntos, líneas y polígonos.
+
+### Mapas ráster
+
+Los mapas ráster son útiles para representar datos continuos sobre una superficie, como temperatura, elevación, o densidad de población. Cada celda en el raster tiene un valor numérico que representa la variable de interés.
+
+Preparación del entorno: Cargar y visualizar datos raster básicos.
+
+Vamos a utilizar paquetes que son estándar y ampliamente disponibles. Si no los tienes instalados, puedes instalarlos con install.packages().
+
+```{r raster}
+# Cargar las librerías necesarias
+library(terra)    # Para datos raster
+library(viridis)  # Para paletas de colores
+library(tidyverse)# Para trabajar con ggplot2 y dplyr para la manipulación de datos
+```
+
+Comenzaremos con un ejemplo simple usando datos de elevación incluidos en el paquete terra. Estos datos representan la topografía de una región específica.
+
+```{r raster-2}
+# Cargar datos de ejemplo de elevación
+# system.file() busca el archivo dentro del paquete instalado
+elev <- rast(system.file("ex/elev.tif", package = "terra"))
+
+# Examinar la estructura del objeto raster
+print(elev)
+```
+
+```{r raster-3}
+# Información básica sobre el raster
+res(elev)  #resoluicion de la celda
+ext(elev) #extensión limites
+```
+
+**Transformar datos raster para ggplot2:** Para usar datos raster en `ggplot2`, necesitamos convertirlos a un formato tabular (data.frame) que contenga las coordenadas (x, y) y los valores de cada celda.
+
+```{r raster-4}
+# Convertir raster a data.frame para ggplot
+# xy = TRUE incluye las coordenadas, na.rm = TRUE elimina celdas sin valor
+elev_df <- as.data.frame(elev, xy = TRUE, na.rm = TRUE)
+```
+
+```{r raster-5}
+# Examinar la estructura de los datos transformados
+head(elev_df)
+str(elev_df)
+class(elev_df)
+```
+
+```{r raster-6}
+# Cambiar el nombre de la columna para mayor claridad
+names(elev_df)[3] <- "elevacion"
+head(elev_df)
+```
+
+**Crear un mapa raster con ggplot2:** Ahora que tenemos los datos en formato tabular, podemos crear un mapa usando `geom_raster()`.
+
+```{r raster-7}
+# Mapa básico con ggplot
+ggplot() +
+  geom_raster(data = elev_df, aes(x = x, y = y, fill = elevacion)) +
+  labs(title = "Mapa de elevación usando ggplot2",
+       x = "Longitud", 
+       y = "Latitud",
+       fill = "Elevación (m)") +
+  theme_minimal()
+```
+
+**Mejorar la visualización del mapa raster:** Podemos mejorar nuestro mapa ajustando la paleta de colores, añadiendo contornos y mejorando la leyenda.
+
+```{r raster-8}
+# Mapa mejorado con paleta de colores secuencial
+ggplot() +
+  geom_raster(data = elev_df, aes(x = x, y = y, fill = elevacion)) +
+  # Añadir curvas de nivel para mejorar la lectura
+  geom_contour(data = elev_df, aes(x = x, y = y, z = elevacion), 
+               color = "gray30", alpha = 0.5, linewidth = 0.3) +
+  # Usar una paleta de colores secuencial (viridis)
+  scale_fill_viridis_c(option = "plasma", direction = -1) +
+  # Ajustar coordenadas para mantener proporciones
+  coord_equal() +
+  labs(title = "Mapa topográfico mejorado",
+       subtitle = "Datos de elevación con curvas de nivel",
+       x = "Longitud", 
+       y = "Latitud",
+       fill = "Altitud (m)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right",
+    legend.key.height = unit(2, "cm")
+  )
+```
+
+### Mapas vectoriales
+
+Los mapas vectoriales son ideales para representar límites administrativos, ríos, carreteras y otros elementos lineales o poligonales. En `ggplot2`, la función principal para trabajar con datos vectoriales es `geom_sf()`.
+
+**Trabajar con datos vectoriales simples:** Comenzaremos con datos vectoriales básicos usando el paquete `terra`, que incluye conjuntos de datos espaciales de ejemplo. Vamos a cargar datos de límites administrativos de un país de ejemplo que viene incluido con el paquete *terra*.
+
+```{r vectorial-1}
+# Cargar librería para datos vectoriales
+# sf es el estándar para datos vectoriales en R
+library(sf)
+```
+
+```{r vectorial-2}
+# Cargar datos vectoriales de ejemplo (Luxemburgo)
+# system.file() busca el archivo shapefile dentro del paquete
+lux_vector <- vect(system.file("ex/lux.shp", package = "terra"))
+```
+
+```{r vectorial-3}
+# Convertir a formato sf (simple features) para usar con ggplot2
+lux_sf <- st_as_sf(lux_vector)
+```
+
+```{r vectorial-4}
+# Examinar la estructura de los datos
+print(lux_sf)
+head(lux_sf)
+```
+
+```{r vectorial-5}
+# Información sobre las columnas disponibles
+names(lux_sf)
+```
+
+### Crear un mapa vectorial con `geom_sf()`
+
+La función `geom_sf()` simplifica enormemente la creación de mapas vectoriales, ya que automáticamente maneja la geometría y el sistema de coordenadas.
+
+```{r vectorial-6}
+# Mapa básico de Luxemburgo
+ggplot(data = lux_sf) +
+  geom_sf() +
+  labs(title = "Mapa básico de Luxemburgo",
+       subtitle = "Distritos administrativos") +
+  theme_minimal()
+```
+
+**Añadir información temática al mapa**: Podemos usar variables de los datos para colorear los polígonos y crear mapas temáticos.
+
+```{r vectorial-7}
+# Mapa temático: Área de cada distrito
+ggplot(data = lux_sf) +
+  geom_sf(aes(fill = AREA)) +
+  # Usar una paleta de colores secuencial
+  scale_fill_viridis_c(
+    option = "viridis",
+    na.value = "gray90",
+    name = "Área (km²)"
+  ) +
+  labs(title = "Área de los distritos de Luxemburgo",
+       subtitle = "Mapa temático por tamaño geográfico",
+       caption = "Fuente: Datos de ejemplo de terra") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+```
+
+### Personalizar colores para variables categóricas
+
+Cuando trabajamos con variables categóricas (como nombres de regiones), podemos usar paletas de colores cualitativas.
+
+```{r vectorial-8}
+# Mapa con colores por nombre de distrito (variable categórica)
+ggplot(data = lux_sf) +
+  geom_sf(aes(fill = NAME_2), color = "white", linewidth = 0.3) +
+  # Usar una paleta de colores cualitativa
+  scale_fill_brewer(palette = "Set3", name = "Distrito") +
+  labs(title = "Distritos de Luxemburgo",
+       subtitle = "Coloreados por nombre de distrito",
+       x = "Longitud",
+       y = "Latitud") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+```
+
+### Mapas interactivos con `mapview`, `leaflet`
+
+Cargamos las librerías con las que vamos a trabajar:
+
+```{r}
+library(sf)  
+library(mapview) 
+library(leaflet)
+```
+
+El paquete **mapview** crea mapas interactivos en HTML usando `leaflet` por debajo. Es ideal para explorar datos espaciales: permite hacer zoom, moverse y consultar atributos al hacer clic.
+
+```{r interactivo1}
+
+mapviewOptions(fgb = FALSE) # útil al generar páginas web  
+
+mapviewOptions( # Seleccionar mapas base sin configurar API keys
+  basemaps = c(
+    "OpenStreetMap",
+    "Esri.WorldImagery",
+    "OpenTopoMap"
+  ),
+  basemaps.color.shuffle = FALSE
+)
+
+names(lux_sf)
+
+#mapa interactivo con la poblacion
+mapview(lux_sf["POP"], 
+         col.regions = sf.colors(12), 
+         fgb = FALSE, 
+         layer.name = "Poblacion" )
+
+#mapa interactivo con las regiones
+mapview(
+  lux_vector,
+  col.regions = "#33A02C",
+  alpha.regions = 0.35,
+  color = "white",
+  lwd = 2,
+  layer.name = "Luxemburgo"
+)
+```
+
+El resultado es un mapa en el que el usuario puede interactuar con los datos. También podemos crear una nueva variable y crear un mapa interactivo tematico
+
+```{r interactivo2}
+
+# Calcular superficie en km²
+lux_vector$area_km2 <- expanse(
+  lux_vector,
+  unit = "km"
+)
+
+# Mapa temático interactivo
+mapview(
+  lux_vector,
+  zcol = "area_km2",
+  col.regions = viridis::viridis(10),
+  alpha.regions = 0.65,
+  color = "white",
+  lwd = 1,
+  legend = TRUE,
+  layer.name = "Superficie (km²)"
+)
+```
+
+`mapview` es ideal para exploración rápida. Pero `leaflet` permite personalizar más el mapa, con títulos emergentes, controles y diferentes fondos.
+
+```{r interactivo3}
+
+# Cargar el shapefile de Luxemburgo incluido en terra
+lux_vector <- vect(
+  system.file("ex/lux.shp", package = "terra")
+)
+
+# Calcular la superficie de cada polígono en km²
+# Esta variable se utilizará para mostrar información
+# cuando hagamos clic sobre los polígonos
+lux_vector$area_km2 <- expanse(lux_vector, unit = "km")
+
+# Convertir el objeto SpatVector (terra) a sf
+# leaflet trabaja directamente con objetos sf
+lux_sf <- st_as_sf(lux_vector)
+
+
+# 2. CREAR EL MAPA INTERACTIVO ------------------------------
+
+# Inicializar el mapa utilizando los datos de Luxemburgo
+leaflet(lux_sf) |>
+
+  # Añadir un mapa base de imágenes satelitales de Esri
+  # group permite identificar esta capa para seleccionarla
+  addProviderTiles(
+    providers$Esri.WorldImagery,
+    group = "Satélite"
+  ) |>
+
+  # Añadir un segundo mapa base de OpenStreetMap
+  # addTiles() utiliza OpenStreetMap por defecto
+  addTiles(
+    group = "Calles"
+  ) |>
+
+  # Añadir los polígonos vectoriales de Luxemburgo
+  addPolygons(
+
+    # Color del interior de los polígonos
+    fillColor = "#31A354",
+
+    # Transparencia del relleno:
+    # 0 = completamente transparente
+    # 1 = completamente opaco
+    fillOpacity = 0.35,
+
+    # Color de los límites de los polígonos
+    color = "white",
+
+    # Grosor de los límites en píxeles
+    weight = 2,
+
+    # Información que aparece al hacer clic en un polígono
+    # ~ indica que utilizamos variables del objeto sf
+    # paste0() concatena texto y valores
+    # round() redondea la superficie a 2 decimales
+    # <b> y </b> muestran el texto en negrita
+    popup = ~paste0(
+      "<b>Superficie:</b> ",
+      round(area_km2, 2),
+      " km²"
+    ),
+
+    # Nombre de la capa vectorial
+    group = "Polígonos"
+  ) |>
+
+  # Añadir un control para activar y desactivar capas
+  addLayersControl(
+
+    # Mapas base: solo puede estar activo uno a la vez
+    baseGroups = c("Satélite", "Calles"),
+
+    # Capas superpuestas: se pueden activar o desactivar
+    overlayGroups = "Polígonos"
+  )
+```
+
+### Combinar datos raster y vectoriales
+
+Una de las ventajas de `ggplot2` es la capacidad de combinar múltiples capas de datos. Podemos superponer datos vectoriales sobre un mapa raster.
+
+Para este ejemplo, vamos a crear un raster simple y superponer los datos vectoriales:
+
+Primero, crear un raster de ejemplo con la misma extensión que Luxemburgo
+
+```{r vectorial-9}
+# Obtener la extensión de Luxemburgo
+lux_bbox <- st_bbox(lux_sf)
+```
+
+```{r vectorial-10}
+# Crear un raster simple con valores aleatorios para la región
+raster_lux <- rast(
+  extent = c(lux_bbox["xmin"], lux_bbox["xmax"], 
+             lux_bbox["ymin"], lux_bbox["ymax"]),
+  resolution = 0.01,  # Resolución de 0.01 grados
+  vals = runif(100 * 100)  # 100x100 celdas con valores aleatorios
+)
+```
+
+```{r vectorial-11}
+# Convertir a data.frame para ggplot
+raster_lux_df <- as.data.frame(raster_lux, xy = TRUE, na.rm = TRUE)
+names(raster_lux_df)[3] <- "valor"
+```
+
+```{r vectorial-12}
+# Crear mapa combinado
+ggplot() +
+  # Capa base: raster
+  geom_raster(data = raster_lux_df, aes(x = x, y = y, fill = valor), alpha = 0.2) +
+  scale_fill_viridis_c(option = "magma", name = "Valor raster") +
+  # Capa superior: límites vectoriales
+  geom_sf(data = lux_sf, fill = NA, color = "darkred", linewidth = 0.8) +
+  # Añadir etiquetas de distritos
+  geom_sf_text(data = lux_sf, aes(label = NAME_2), size = 3, color = "darkblue") +
+  labs(title = "Mapa combinado raster-vectorial",
+       subtitle = "Raster aleatorio con límites administrativos de Luxemburgo",
+       x = "Longitud",
+       y = "Latitud") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+```
+
+### Proyecciones y sistemas de coordenadas
+
+Los mapas utilizan diferentes proyecciones para representar la superficie curva de la Tierra en un plano. Es importante entender y especificar la proyección correcta para cada mapa.
+
+Trabajar con diferentes proyecciones
+
+```{r proyecciones-1}
+# Mapa de Luxemburgo con diferentes proyecciones
+
+# 1. Proyección original (WGS84 - coordenadas geográficas)
+p1 <- ggplot(data = lux_sf) + #Por defecto tendremos el crs = WGS84
+  geom_sf() +
+  coord_sf(crs = 4326) +  # WGS84 (código EPSG)
+  labs(title = "WGS84 (coordenadas geográficas)") +
+  theme_minimal()
+p1
+```
+
+```{r proyecciones-2}
+# 2. Proyección UTM para la zona de Luxemburgo
+lux_utm <- st_transform(lux_sf, crs = 32631)
+
+p2 <- ggplot(data = lux_utm) +
+  geom_sf() +
+  coord_sf(datum = NA) +
+  labs(title = "UTM Zona 31N",
+       subtitle = "Unidades: metros\nEje X: Este (Easting), Eje Y: Norte (Northing)") +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+p2
+```
+
+```{r proyecciones-3}
+# Mostrar las dos proyecciones
+library(patchwork)
+p1 + p2 + plot_layout(ncol = 2) +
+  plot_annotation(
+    title = "Comparación de proyecciones cartográficas",
+    subtitle = "La misma región con diferentes sistemas de coordenadas",
+    caption = "La proyección UTM minimiza la distorsión para esta zona"
+  )
+```
+
+#### 📝 Ejercicio: Mapa temático de población
+
+Utilizando los datos de Luxemburgo (lux_sf), crea un mapa que muestre la población (POP) de cada distrito. Personaliza los colores, añade una leyenda clara y etiquetas con los nombres de los distritos.
+
+```{r proyecciones-4}
+# Tu código aquí para el ejercicio 1:
+# 1. Crea un mapa con geom_sf() usando fill = POP
+# 2. Personaliza la paleta de colores con scale_fill_viridis_c()
+# 3. Añade etiquetas con geom_sf_text() o geom_sf_label()
+# 4. Ajusta el tema y los títulos
+```
+
+```{r proyecciones-5}
+# Solución del ejercicio 1:
+ggplot(data = lux_sf) +
+  geom_sf(aes(fill = POP), color = "white", linewidth = 0.5) +
+  geom_sf_text(aes(label = NAME_2), size = 3, color = "black") +
+  scale_fill_viridis_c(
+    option = "inferno",
+    name = "Población",
+    labels = scales::label_comma()
+  ) +
+  labs(title = "Población por distrito en Luxemburgo",
+       subtitle = "Datos censales",
+       x = "Longitud",
+       y = "Latitud") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    legend.position = "right"
+  )
+```
+
+#### 📝 Ejercicio: Mapa raster personalizado
+
+Crea un raster simple (sin límites ni otros elementos de mapas) que represente un gradiente de este a oeste (valores que aumentan de izquierda a derecha) y de norte a sur (valores que aumentan de arriba a abajo). Combínalos para crear un patrón de sombreado y visualízalo con `ggplot2`.
+
+```{r proyecciones-6}
+# Tu código aquí para el ejercicio 2:
+# 1. Crea una secuencia de coordenadas x e y
+# 2. Calcula valores basados en las coordenadas (p.ej., x * y)
+# 3. Crea un data.frame con x, y y valor
+# 4. Visualiza con geom_raster()
+```
+
+```{r proyecciones-7}
+# Solución del ejercicio 2:
+# Crear coordenadas
+x_coords <- seq(0, 10, length.out = 100)
+y_coords <- seq(0, 10, length.out = 100)
+
+# Crear matriz de valores (producto de coordenadas)
+valores <- outer(x_coords, y_coords, function(x, y) x * y)
+
+# Crear data.frame
+raster_df <- expand.grid(x = x_coords, y = y_coords)
+raster_df$valor <- as.vector(valores)
+
+# Visualizar
+ggplot(raster_df, aes(x = x, y = y, fill = valor)) +
+  geom_raster() +
+  scale_fill_viridis_c(option = "turbo", name = "Valor") +
+  labs(title = "Raster artificial: gradiente X*Y",
+       x = "Coordenada X",
+       y = "Coordenada Y") +
+  theme_minimal() +
+  coord_equal()
+```
+
+#### 📝 Ejercicio: Mapa de localizaciones puntuales
+
+Crea un mapa que muestre puntos de interés en Luxemburgo. Puedes generar coordenadas aleatorias dentro de la extensión del país y visualizarlas sobre el mapa vectorial.
+
+### Consejos prácticos
+
+#### Elección de colores:
+
+-   Para datos secuenciales (como elevación o temperatura), usa paletas secuenciales (viridis, magma, plasma).
+
+-   Para datos categóricos (como tipos de suelo o regiones), usa paletas cualitativas (Set3, Accent, Dark2).
+
+#### Sistemas de coordenadas:
+
+-   Siempre verifica el CRS (Sistema de Referencia de Coordenadas) de tus datos.
+
+-   Para datos vectoriales: st_crs(objeto_sf)
+
+-   Para datos raster: crs(objeto_raster)
+
+#### Rendimiento:
+
+-   Para mapas muy detallados con muchos polígonos, considera simplificar la geometría.
+
+-   Para rásteres muy grandes, considera reducir la resolución o usar submuestreo.
+
+#### Leyendas:
+
+-   Asegúrate de que las leyendas sean claras e informativas.
+
+-   Incluye unidades cuando sea apropiado.
+
+-   Considera la posición de la leyenda (derecha, izquierda, abajo) según el espacio disponible.
+
+### Reproducibilidad:
+
+-   Siempre establece una semilla (set.seed()) cuando generes datos aleatorios y quieras poder volver a comprobarlo.
+
+-   Documenta las fuentes de tus datos espaciales.
+
+-   Especifica las versiones de los paquetes utilizados.
