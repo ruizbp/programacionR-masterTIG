@@ -429,7 +429,7 @@ Realiza los siguientes pasos:
 
 (1) Selecciona el data.frame `penguins`, y calcula con `mutate` dos nuevas variables que son la longitud y la profundidad del pico en metros. Guardalo en el df `penguins`.
 
-(2) Para cada especie calcula el numero de individuos hembras y machos con la función table.
+(2) Para cada especie calcula el numero de individuos hembras y machos.
 
 (3) Para los machos y hembras para cada especie calcula la media, el maximo, el mínimo y la desviación estandar de la longitud y profundidad del pico.
 
