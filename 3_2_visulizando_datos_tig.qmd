@@ -564,7 +564,7 @@ ggplot(datos_crias,
 ### Diferencias clave en el tratamiento gráfico
 
 | Característica | Variables continuas | Variables discretas |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | Valores posibles | Cualquier valor en un rango (incluye decimales) | Solo valores específicos (generalmente enteros) |
 | Geometría típica | `geom_histogram()`, `geom_density()` | `geom_bar()`, `geom_histogram()` |
 | Ajuste de bins | binwidth o bins para agrupar valores continuos | binwidth = 1 para separar cada valor entero |

@@ -427,15 +427,13 @@ penguins |>
 
 Realiza los siguientes pasos:
 
-(1) Para cada especie calcula el numero de individuos hembras y machos con la función table.
+(1) Selecciona el data.frame `penguins`, y calcula con `mutate` dos nuevas variables que son la longitud y la profundidad del pico en metros. Guardalo en el df `penguins`.
 
-(2) Exporta la tabla en la carpeta "resultados" nombrando a la tabla como `3.1.summary_spp_sex.csv`.
+(2) Para cada especie calcula el numero de individuos hembras y machos con la función table.
 
-(3) Para los machos y hembras calcula la media, el maximo, el mínimo y la desviación estandar del largo del pico.
+(3) Para los machos y hembras para cada especie calcula la media, el maximo, el mínimo y la desviación estandar de la longitud y profundidad del pico.
 
-(4) Re-escribe el mismo archivo, de forma que incluya el número de machos y hembras para cada especie, y las estadísicas solicitadas en el punto (2).
-
-(5) Selecciona el data.frame `penguins`, y calcula con `mutate` dos nuevas variables que son la longitud y la profundidad del pico en metros. Guardalo en el df `penguins`. Repite los pasos del (1) al (4). Sintentiza los resultados y las principales especies por macho y hembra.
+(4) Exporta la tabla en la carpeta "resultados" nombrando a la tabla como `3.1.summary_spp_sex.csv`
 
 ------------------------------------------------------------------------
 
